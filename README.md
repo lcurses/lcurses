@@ -61,7 +61,7 @@ Dependencies are listed in the dependencies entry of the file
 `rockspec.conf`. You will also need Autoconf and Automake.
 
 See the Automake generated INSTALL file for `configure`
-instructions, and use `configure --help` after a succesful
+instructions, and use `configure --help` after a successful
 `./bootstrap` for details of available command-line switches.
 
 
