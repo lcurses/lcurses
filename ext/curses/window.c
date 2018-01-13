@@ -1487,13 +1487,16 @@ Wwinnstr(lua_State *L)
 	WINDOW *w = checkwin(L, 1);
 	int n = checkint(L, 2);
 	char buf[LUAL_BUFFERSIZE];
+	char *ptr = buf;
 
-	if (n >= LUAL_BUFFERSIZE)
-		n = LUAL_BUFFERSIZE - 1;
-	if (winnstr(w, buf, n) == ERR)
-		return 0;
+	if (abs(n) >= LUAL_BUFFERSIZE)
+	    ptr = lua_newuserdata(L, (size_t) abs(n) + 1);
 
-	lua_pushlstring(L, buf, n);
+	n = winnstr(w, ptr, n);
+	if (n == ERR)
+	    return 0;
+
+	lua_pushlstring(L, ptr, n);
 	return 1;
 }
 
@@ -1515,13 +1518,16 @@ Wmvwinnstr(lua_State *L)
 	int x = checkint(L, 3);
 	int n = checkint(L, 4);
 	char buf[LUAL_BUFFERSIZE];
+	char *ptr = buf;
 
-	if (n >= LUAL_BUFFERSIZE)
-		n = LUAL_BUFFERSIZE - 1;
-	if (mvwinnstr(w, y, x, buf, n) == ERR)
-		return 0;
+	if (abs(n) >= LUAL_BUFFERSIZE)
+	    ptr = lua_newuserdata(L, (size_t) abs(n) + 1);
 
-	lua_pushlstring(L, buf, n);
+	n = mvwinnstr(w, y, x, ptr, n);
+	if (n == ERR)
+	    return 0;
+
+	lua_pushlstring(L, ptr, n);
 	return 1;
 }
 
