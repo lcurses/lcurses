@@ -317,7 +317,6 @@ optintfield(lua_State *L, int index, const char *k, int def)
 static const char *
 optstringfield(lua_State *L, int index, const char *k, const char *def)
 {
-	const char *r;
 	int got_type;
 	got_type = lua_type(L, -1);
 	lua_pop(L, 1);
