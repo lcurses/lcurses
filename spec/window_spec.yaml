@@ -300,19 +300,6 @@ specify curses.window:
       expect(r[1]).to_be 'hello'
 
 - describe refreshing:
-  - it draws on the terminal:
-      r, screen = session(function(curses, stdscr)
-         stdscr:mvaddstr(0, 0, 'visible')
-         stdscr:refresh()
-      end)
-      expect(screen).to_contain 'visible'
-  - it holds back drawing until the screen is updated:
-      r, screen = session(function(curses, stdscr)
-         stdscr:mvaddstr(0, 0, 'later')
-         stdscr:noutrefresh()
-         curses.doupdate()
-      end)
-      expect(screen).to_contain 'later'
   - it knows what has changed:
       r = session(function(curses, stdscr)
          local win = curses.newwin(3, 3, 0, 0)
@@ -402,13 +389,6 @@ specify curses.window:
          return h, w, pad:mvwinnstr(30, 90, 3)
       end)
       expect(r).to_equal {40, 100, 'far', n = 3}
-  - it shows a part of the pad:
-      r, screen = session(function(curses, stdscr)
-         local pad = curses.newpad(40, 100)
-         pad:mvaddstr(30, 90, 'padded')
-         pad:prefresh(30, 90, 0, 0, 5, 20)
-      end)
-      expect(screen).to_contain 'padded'
   - it makes a subpad:
       r = session(function(curses, stdscr)
          local pad = curses.newpad(40, 100)

@@ -32,7 +32,7 @@ jobs:
       - name: install
         run: |
           sudo apt-get update -q -q --yes
-          sudo apt-get install -y libncurses-dev
+          sudo apt-get install -y libncurses-dev libvterm-dev
           # LuaRocks 3.13.0 crashes writing the namespace of a namespaced
           # dependency on Lua 5.1 (luarocks/luarocks#1831), so install
           # gvvaughan/ldoc by hand, before anything else needs an ldoc.
@@ -40,6 +40,8 @@ jobs:
           printf gvvaughan > "$(luarocks show --rock-dir ldoc)/rock_namespace"
           # Until luke is released, install it from its development rockspec.
           luarocks install https://raw.githubusercontent.com/gvvaughan/luke/master/luke-dev-1.rockspec
+          # Until lvterm is released, install it from its development rockspec.
+          luarocks install https://raw.githubusercontent.com/gvvaughan/lvterm/master/lvterm-dev-1.rockspec
           luarocks test --prepare
 
       - name: build

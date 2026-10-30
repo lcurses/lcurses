@@ -69,12 +69,12 @@ specify curses:
       end)
       expect(r).to_equal {true, true, true, n = 3}
   - it makes noise:
-      r, screen = session(function(curses, stdscr)
+      r, output = session(function(curses, stdscr)
          curses.beep()
          curses.flash()
          stdscr:refresh()
       end)
-      expect(screen).to_contain '\7'
+      expect(output).to_contain '\7'
 
 - describe modes:
   - it sets the input modes:
@@ -185,12 +185,6 @@ specify curses:
       expect(r[1]).to_match '^ab%s+$'
       expect(r[2]).to_match '^%s+$'
       expect(r[3]).to_match '^%s+$'
-  - it refreshes the screen:
-      r, screen = session(function(curses)
-         curses.addstr(0, 0, 'shown')
-         curses.refresh()
-      end)
-      expect(screen).to_contain 'shown'
   - it reads a character as a string, optionally at a position:
       r = session(function(curses, stdscr, ready)
          ready()

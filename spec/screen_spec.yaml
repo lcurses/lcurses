@@ -1,0 +1,202 @@
+specify what curses draws:
+- describe refreshing:
+  - it draws on the terminal:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'visible')
+         stdscr:refresh()
+      end)
+      expect(term).to_show_row(0, 'visible')
+  - it draws nothing until the screen is updated:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'later')
+         stdscr:noutrefresh()
+      end)
+      expect(term).not_to_show_row(0, 'later')
+  - it draws what was held back when the screen is updated:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'later')
+         stdscr:noutrefresh()
+         curses.doupdate()
+      end)
+      expect(term).to_show_row(0, 'later')
+  - it draws only what has changed, in the right places:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'one')
+         stdscr:mvaddstr(2, 4, 'two')
+         stdscr:refresh()
+         stdscr:mvaddstr(0, 0, '1')
+         stdscr:refresh()
+      end)
+      expect(term).to_look_like [[
+      1ne
+
+          two
+      ]]
+  - it leaves the cursor where it was moved to:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(1, 2, 'abc')
+         stdscr:move(5, 6)
+         stdscr:refresh()
+      end)
+      expect(term).to_have_cursor_at(5, 6)
+  - it follows the cursor as it writes:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(3, 4, 'abc')
+         stdscr:refresh()
+      end)
+      expect(term).to_have_cursor_at(3, 7)
+
+- describe erasing:
+  - it clears a line from the cursor:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abcdef')
+         stdscr:refresh()
+         stdscr:move(0, 3)
+         stdscr:clrtoeol()
+         stdscr:refresh()
+      end)
+      expect(term).to_show_row(0, 'abc')
+  - it clears the screen:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abc')
+         stdscr:mvaddstr(4, 0, 'def')
+         stdscr:refresh()
+         stdscr:clear()
+         stdscr:refresh()
+      end)
+      expect(term).to_look_like ''
+
+- describe attributes and colors:
+  - it makes bold text:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:attron(curses.A_BOLD)
+         stdscr:mvaddstr(0, 0, 'b')
+         stdscr:attroff(curses.A_BOLD)
+         stdscr:addstr 'n'
+         stdscr:refresh()
+      end)
+      expect(term).to_show_cell(0, 0, {text = 'b', bold = true})
+      expect(term).to_show_cell(0, 1, {text = 'n', bold = false})
+  - it makes reverse and underlined text:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:attrset(curses.A_REVERSE)
+         stdscr:mvaddstr(0, 0, 'r')
+         stdscr:attrset(curses.A_UNDERLINE)
+         stdscr:addstr 'u'
+         stdscr:refresh()
+      end)
+      expect(term).to_show_cell(0, 0, {reverse = true})
+      expect(term).to_show_cell(0, 1, {underline = 1, reverse = false})
+  - it makes colored text:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         curses.start_color()
+         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLUE)
+         stdscr:attrset(curses.color_pair(1))
+         stdscr:mvaddstr(0, 0, 'c')
+         stdscr:attrset(curses.A_NORMAL)
+         stdscr:addstr 'n'
+         stdscr:refresh()
+      end)
+      expect(term).to_show_cell(0, 0, {text = 'c', fg = 1, bg = 4})
+      expect(term).to_show_cell(0, 1, {text = 'n', fg = nil, bg = nil})
+
+- describe windows:
+  - it draws a window where it was put:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         local win = curses.newwin(2, 5, 3, 10)
+         win:mvaddstr(0, 0, 'win')
+         win:refresh()
+      end)
+      expect(term).to_look_like [[
+
+
+
+                win
+      ]]
+  - it draws a box with the sides given, and line drawing corners:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         local win = curses.newwin(4, 6, 1, 2)
+         win:box('|', '-')
+         win:mvaddstr(1, 1, 'hi')
+         win:refresh()
+      end)
+      expect(term).to_look_like [[
+
+        ┌----┐
+        |hi  |
+        |    |
+        └----┘
+      ]]
+  - it draws a box with line drawing characters:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         local win = curses.newwin(3, 6, 0, 0)
+         win:box(curses.ACS_VLINE, curses.ACS_HLINE)
+         win:refresh()
+      end)
+      expect(term).to_look_like [[
+      ┌────┐
+      │    │
+      └────┘
+      ]]
+  - it covers a window with a later one:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         local under = curses.newwin(1, 8, 0, 0)
+         local over = curses.newwin(1, 4, 0, 2)
+         under:addstr 'abcdefgh'
+         under:refresh()
+         over:addstr 'WXYZ'
+         over:refresh()
+      end)
+      expect(term).to_show_row(0, 'abWXYZgh')
+  - it draws a pad through a viewport:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         local pad = curses.newpad(40, 100)
+         pad:mvaddstr(30, 90, 'padded')
+         pad:prefresh(30, 90, 0, 0, 5, 20)
+      end)
+      expect(term).to_show_row(0, 'padded')
+
+- describe lines and boxes on the screen:
+  - it draws horizontal and vertical lines:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:mvhline(0, 0, '-', 5)
+         stdscr:mvvline(1, 0, '|', 2)
+         stdscr:refresh()
+      end)
+      expect(term).to_look_like [[
+      -----
+      |
+      |
+      ]]
+
+- describe scrolling:
+  - it scrolls the contents of a window up:
+      if not lvterm then pending 'needs lvterm' end
+      r, output, term = session(function(curses, stdscr)
+         stdscr:scrollok(true)
+         for i = 0, 25 do
+            stdscr:mvaddstr(math.min(i, 23), 0, 'line ' .. i)
+            if i >= 23 then
+               stdscr:addstr '\n'
+            end
+         end
+         stdscr:refresh()
+      end)
+      expect(term).to_show_row(0, 'line 3')

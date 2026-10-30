@@ -76,6 +76,7 @@ build = {
 test_dependencies = {
    'luacov',
    'luaposix >= 38',
+   'lvterm',
    'specl >= 17.2.2',
 }
 
