@@ -15,6 +15,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # Make each cell certain of the lvterm backend that it tests: LuaJIT's
+    # FFI on LuaJIT, which has to fail rather than use the C one, and the C
+    # backend everywhere else.
+    env:
+      LVTERM_BACKEND: ${{ matrix.lua-version == 'luajit' && 'ffi' || 'core' }}
+
     # id-token lets codecov-action authenticate uploads with OIDC.
     permissions:
       contents: read

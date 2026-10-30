@@ -17,9 +17,10 @@ end
 
 local terminal = require 'terminal'
 
--- A virtual terminal, to look at what is drawn on the screen, is only
--- there where lvterm has a backend for this Lua, which is LuaJIT for now.
--- The matchers are always there, so that spec files that use them parse.
+-- A virtual terminal, to look at what is drawn on the screen, is there
+-- wherever lvterm has a backend, unless LVTERM_BACKEND asks for one that
+-- it can't use, and then the specs say so.  The matchers are always there,
+-- so that spec files that use them parse.
 local ok, lvterm_module = pcall(require, 'lvterm')
 lvterm = ok and lvterm_module or nil
 require 'screen'

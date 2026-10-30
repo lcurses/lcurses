@@ -1,4 +1,12 @@
 specify what curses draws:
+- describe the virtual terminal:
+  - it is from the backend that was asked for:
+      wanted = os.getenv 'LVTERM_BACKEND'
+      if wanted then
+         expect(lvterm).not_to_be(nil)
+         expect(lvterm and lvterm.backend).to_be(wanted)
+      end
+
 - describe refreshing:
   - it draws on the terminal:
       if not lvterm then pending 'needs lvterm' end
