@@ -1,0 +1,418 @@
+specify curses.window:
+- describe geometry:
+  - it knows the size and position of the screen:
+      r = session(function(curses, stdscr)
+         local h, w = stdscr:getmaxyx()
+         local y, x = stdscr:getbegyx()
+         return h, w, y, x
+      end)
+      expect(r).to_equal {24, 80, 0, 0, n = 4}
+  - it makes windows of a given size and position:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(5, 10, 2, 3)
+         local h, w = win:getmaxyx()
+         local y, x = win:getbegyx()
+         return h, w, y, x
+      end)
+      expect(r).to_equal {5, 10, 2, 3, n = 4}
+  - it moves and resizes a window:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(5, 10, 2, 3)
+         win:move_window(4, 6)
+         win:resize(3, 7)
+         local h, w = win:getmaxyx()
+         local y, x = win:getbegyx()
+         return h, w, y, x
+      end)
+      expect(r).to_equal {3, 7, 4, 6, n = 4}
+  - it makes subwindows at an absolute position:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(10, 20, 2, 3)
+         local sub = win:sub(4, 8, 3, 5)
+         local h, w = sub:getmaxyx()
+         local y, x = sub:getbegyx()
+         local py, px = sub:getparyx()
+         return h, w, y, x, py, px
+      end)
+      expect(r).to_equal {4, 8, 3, 5, 1, 2, n = 6}
+  - it makes derived windows at a position relative to the parent:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(10, 20, 2, 3)
+         local der = win:derive(4, 8, 1, 2)
+         local y, x = der:getbegyx()
+         der:move_derived(2, 3)
+         local py, px = der:getparyx()
+         return y, x, py, px
+      end)
+      expect(r).to_equal {3, 5, 2, 3, n = 4}
+  - it clones a window:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(3, 6, 1, 1)
+         win:addstr 'abc'
+         local dup = win:clone()
+         local h, w = dup:getmaxyx()
+         return h, w, dup:mvwinnstr(0, 0, 3)
+      end)
+      expect(r).to_equal {3, 6, 'abc', n = 3}
+  - it has a string representation:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(1, 1, 0, 0)
+         local open = tostring(win)
+         win:close()
+         return open, tostring(win)
+      end)
+      expect(r[1]).to_match '^curses window %(0x'
+      expect(r[2]).to_be 'curses window (closed)'
+
+- describe output:
+  - it writes a string at the cursor, and moves the cursor:
+      r = session(function(curses, stdscr)
+         stdscr:move(2, 3)
+         stdscr:addstr 'hello'
+         local y, x = stdscr:getyx()
+         return y, x, stdscr:mvwinnstr(2, 3, 5)
+      end)
+      expect(r).to_equal {2, 8, 'hello', n = 3}
+  - it writes a string at a position:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(4, 5, 'world')
+         return stdscr:mvwinnstr(4, 5, 5)
+      end)
+      expect(r[1]).to_be 'world'
+  - it writes no more than a given number of characters:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abcdef', 3)
+         return stdscr:mvwinnstr(0, 0, 6)
+      end)
+      expect(r[1]).to_match '^abc%s*$'
+  - it writes characters from a string or an integer:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddch(0, 0, 'a')
+         stdscr:addch(string.byte 'b')
+         stdscr:mvaddch(1, 4, 'c')
+         return stdscr:mvwinnstr(0, 0, 2), stdscr:mvwinnstr(1, 4, 1)
+      end)
+      expect(r).to_equal {'ab', 'c', n = 2}
+  - it writes a chstr:
+      r = session(function(curses, stdscr)
+         local cs = curses.new_chstr(3)
+         cs:set_str(0, 'xyz', curses.A_BOLD)
+         stdscr:mvaddchstr(1, 1, cs)
+         return stdscr:mvwinnstr(1, 1, 3), (stdscr:mvwinch(1, 2))
+      end)
+      expect(r[1]).to_be 'xyz'
+      expect(r[2] % 256).to_be(string.byte 'y')
+  - it reads a chstr:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abc')
+         local cs = stdscr:mvwinchnstr(0, 0, 3)
+         return cs:len(), (cs:get(1))
+      end)
+      expect(r).to_equal {3, string.byte 'b', n = 2}
+  - it reads a character with its attributes:
+      r = session(function(curses, stdscr)
+         stdscr:attron(curses.A_BOLD)
+         stdscr:mvaddstr(0, 0, 'b')
+         stdscr:attroff(curses.A_BOLD)
+         stdscr:addstr 'n'
+         local bold = stdscr:mvwinch(0, 0)
+         local normal = stdscr:mvwinch(0, 1)
+         return bold, normal, curses.A_BOLD
+      end)
+      expect(r[1]).to_be(string.byte 'b' + r[3])
+      expect(r[2]).to_be(string.byte 'n')
+  - it inserts characters and strings, moving the rest along:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'bc')
+         stdscr:mvwinsch(0, 0, 'a')
+         stdscr:mvwinsstr(0, 3, 'de')
+         return stdscr:mvwinnstr(0, 0, 5)
+      end)
+      expect(r[1]).to_be 'abcde'
+  - it inserts no more than a given number of characters:
+      r = session(function(curses, stdscr)
+         stdscr:mvwinsnstr(0, 0, 'abcdef', 3)
+         return stdscr:mvwinnstr(0, 0, 3)
+      end)
+      expect(r[1]).to_be 'abc'
+  - it deletes characters:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abcd')
+         stdscr:mvdelch(0, 1)
+         stdscr:move(0, 0)
+         stdscr:delch()
+         return stdscr:mvwinnstr(0, 0, 2)
+      end)
+      expect(r[1]).to_be 'cd'
+  - it inserts and deletes lines:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'one')
+         stdscr:mvaddstr(1, 0, 'two')
+         stdscr:move(1, 0)
+         stdscr:insertln()
+         local inserted = stdscr:mvwinnstr(2, 0, 3)
+         stdscr:move(0, 0)
+         stdscr:deleteln()
+         return inserted, stdscr:mvwinnstr(1, 0, 3)
+      end)
+      expect(r).to_equal {'two', 'two', n = 2}
+  - it inserts and deletes lines by count:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'one')
+         stdscr:mvaddstr(1, 0, 'two')
+         stdscr:move(0, 0)
+         stdscr:winsdelln(-1)
+         return stdscr:mvwinnstr(0, 0, 3)
+      end)
+      expect(r[1]).to_be 'two'
+
+- describe erasing:
+  - it clears to the end of the line:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abcd')
+         stdscr:move(0, 2)
+         stdscr:clrtoeol()
+         return stdscr:mvwinnstr(0, 0, 4)
+      end)
+      expect(r[1]).to_match '^ab%s+$'
+  - it clears to the bottom of the window:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'abcd')
+         stdscr:mvaddstr(1, 0, 'efgh')
+         stdscr:move(0, 2)
+         stdscr:clrtobot()
+         return stdscr:mvwinnstr(0, 0, 4), stdscr:mvwinnstr(1, 0, 4)
+      end)
+      expect(r[1]).to_match '^ab%s+$'
+      expect(r[2]).to_match '^%s+$'
+  - it erases the whole window:
+      r = session(function(curses, stdscr)
+         stdscr:mvaddstr(3, 3, 'abcd')
+         stdscr:erase()
+         local erased = stdscr:mvwinnstr(3, 3, 4)
+         stdscr:mvaddstr(3, 3, 'abcd')
+         stdscr:clear()
+         return erased, stdscr:mvwinnstr(3, 3, 4)
+      end)
+      expect(r[1]).to_match '^%s+$'
+      expect(r[2]).to_match '^%s+$'
+
+- describe lines and boxes:
+  - it draws horizontal and vertical lines:
+      r = session(function(curses, stdscr)
+         stdscr:mvhline(0, 0, '-', 4)
+         stdscr:mvvline(1, 0, '|', 2)
+         stdscr:move(5, 5)
+         stdscr:hline('=', 3)
+         stdscr:move(6, 6)
+         stdscr:vline('!', 2)
+         return stdscr:mvwinnstr(0, 0, 4), stdscr:mvwinnstr(1, 0, 1),
+                stdscr:mvwinnstr(2, 0, 1), stdscr:mvwinnstr(5, 5, 3),
+                stdscr:mvwinnstr(7, 6, 1)
+      end)
+      expect(r).to_equal {'----', '|', '|', '===', '!', n = 5}
+  - it draws a box with the given characters:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(3, 5, 0, 0)
+         win:box('|', '-')
+         return win:mvwinnstr(0, 1, 3), win:mvwinnstr(1, 0, 1),
+                win:mvwinnstr(1, 4, 1), win:mvwinnstr(2, 1, 3)
+      end)
+      expect(r).to_equal {'---', '|', '|', '---', n = 4}
+  - it draws a border with the given characters:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(3, 5, 0, 0)
+         win:border('l', 'r', 't', 'b', 'a', 'b', 'c', 'd')
+         return win:mvwinnstr(0, 0, 5), win:mvwinnstr(1, 0, 1),
+                win:mvwinnstr(1, 4, 1), win:mvwinnstr(2, 0, 5)
+      end)
+      expect(r).to_equal {'atttb', 'l', 'r', 'cbbbd', n = 4}
+
+- describe attributes:
+  - it sets the background:
+      r = session(function(curses, stdscr)
+         stdscr:wbkgd(string.byte '.')
+         return stdscr:getbkgd(), (stdscr:mvwinch(0, 0))
+      end)
+      expect(r[1] % 256).to_be(string.byte '.')
+  - it sets and clears attributes:
+      r = session(function(curses, stdscr)
+         stdscr:attrset(curses.A_BOLD)
+         stdscr:mvaddstr(0, 0, 'a')
+         stdscr:standend()
+         stdscr:mvaddstr(0, 1, 'b')
+         stdscr:standout()
+         stdscr:mvaddstr(0, 2, 'c')
+         return stdscr:mvwinch(0, 0), stdscr:mvwinch(0, 1), stdscr:mvwinch(0, 2),
+                curses.A_BOLD, curses.A_STANDOUT
+      end)
+      expect(r[1]).to_be(string.byte 'a' + r[4])
+      expect(r[2]).to_be(string.byte 'b')
+      expect(r[3]).to_be(string.byte 'c' + r[5])
+
+- describe scrolling:
+  - it scrolls when enabled:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(3, 4, 0, 0)
+         win:scrollok(true)
+         win:mvaddstr(0, 0, 'one')
+         win:mvaddstr(1, 0, 'two')
+         win:mvaddstr(2, 0, 'six')
+         win:scrl(1)
+         return win:mvwinnstr(0, 0, 3), win:mvwinnstr(1, 0, 3)
+      end)
+      expect(r).to_equal {'two', 'six', n = 2}
+  - it scrolls a region:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(4, 4, 0, 0)
+         win:scrollok(true)
+         for i, s in ipairs {'one', 'two', 'six', 'ten'} do
+            win:mvaddstr(i - 1, 0, s)
+         end
+         win:wsetscrreg(1, 2)
+         win:scrl(1)
+         return win:mvwinnstr(0, 0, 3), win:mvwinnstr(1, 0, 3), win:mvwinnstr(3, 0, 3)
+      end)
+      expect(r).to_equal {'one', 'six', 'ten', n = 3}
+
+- describe copying:
+  - it overlays and overwrites another window:
+      r = session(function(curses, stdscr)
+         local src = curses.newwin(2, 4, 0, 0)
+         local dst = curses.newwin(2, 4, 0, 0)
+         src:mvaddstr(0, 0, 'a b')
+         dst:mvaddstr(0, 0, 'xyzw')
+         src:overlay(dst)
+         local overlaid = dst:mvwinnstr(0, 0, 4)
+         src:overwrite(dst)
+         return overlaid, dst:mvwinnstr(0, 0, 4)
+      end)
+      expect(r[1]).to_be 'aybw'
+      expect(r[2]).to_match '^a b%s*$'
+  - it copies a rectangle:
+      r = session(function(curses, stdscr)
+         local src = curses.newwin(3, 6, 0, 0)
+         local dst = curses.newwin(3, 8, 5, 0)
+         src:mvaddstr(1, 1, 'hello')
+         src:copywin(dst, 1, 1, 0, 2, 0, 6, false)
+         return dst:mvwinnstr(0, 2, 5)
+      end)
+      expect(r[1]).to_be 'hello'
+
+- describe refreshing:
+  - it draws on the terminal:
+      r, screen = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'visible')
+         stdscr:refresh()
+      end)
+      expect(screen).to_contain 'visible'
+  - it holds back drawing until the screen is updated:
+      r, screen = session(function(curses, stdscr)
+         stdscr:mvaddstr(0, 0, 'later')
+         stdscr:noutrefresh()
+         curses.doupdate()
+      end)
+      expect(screen).to_contain 'later'
+  - it knows what has changed:
+      r = session(function(curses, stdscr)
+         local win = curses.newwin(3, 3, 0, 0)
+         win:refresh()
+         local clean = win:is_wintouched()
+         win:touch()
+         local touched = win:is_wintouched()
+         win:refresh()
+         return clean, touched, win:is_wintouched(), win:is_linetouched(1)
+      end)
+      expect(r).to_equal {false, true, false, false, n = 4}
+  - it draws a line again:
+      r = session(function(curses, stdscr)
+         stdscr:refresh()
+         stdscr:redrawwin()
+         return stdscr:redrawln(0, 2)
+      end)
+      expect(r[1]).to_be(true)
+
+- describe input:
+  - it reads a character:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         return stdscr:getch()
+      end, 'q')
+      expect(r[1]).to_be(string.byte 'q')
+  - it reads a character at a position:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         local c = stdscr:mvgetch(3, 4)
+         return c, stdscr:getyx()
+      end, 'q')
+      expect(r).to_equal {string.byte 'q', 3, 4, n = 3}
+  - it reads a string:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         return stdscr:getstr()
+      end, 'hello\n')
+      expect(r[1]).to_be 'hello'
+  - it reads a string of limited length:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         return stdscr:getstr(3)
+      end, 'hello\n')
+      expect(r[1]).to_be 'hel'
+  - it reads a string at a position:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         local s = stdscr:mvgetstr(2, 2)
+         return s, stdscr:getyx()
+      end, 'abc\n')
+      expect(r[1]).to_be 'abc'
+  - it reads function keys when the keypad is on:
+      r = session(function(curses, stdscr, ready)
+         stdscr:keypad(true)
+         ready()
+         return stdscr:getch(), curses.KEY_UP
+      end, '\27OA')
+      expect(r[1]).to_be(r[2])
+      expect(r[2]).not_to_be(nil)
+  - it fails to read a function key when the keypad is off:
+      r = session(function(curses, stdscr, ready)
+         stdscr:keypad(false)
+         ready()
+         return stdscr:getch(), curses.KEY_UP
+      end, '\27OA')
+      expect(r[1]).to_be(27)
+  - it returns nothing when told not to wait, and there is no input:
+      r = session(function(curses, stdscr)
+         stdscr:nodelay(true)
+         return select('#', stdscr:getch())
+      end)
+      expect(r[1]).to_be(0)
+  - it returns nothing when the timeout passes with no input:
+      r = session(function(curses, stdscr)
+         stdscr:timeout(10)
+         return select('#', stdscr:getch())
+      end)
+      expect(r[1]).to_be(0)
+
+- describe pads:
+  - it makes a pad larger than the screen:
+      r = session(function(curses, stdscr)
+         local pad = curses.newpad(40, 100)
+         pad:mvaddstr(30, 90, 'far')
+         local h, w = pad:getmaxyx()
+         return h, w, pad:mvwinnstr(30, 90, 3)
+      end)
+      expect(r).to_equal {40, 100, 'far', n = 3}
+  - it shows a part of the pad:
+      r, screen = session(function(curses, stdscr)
+         local pad = curses.newpad(40, 100)
+         pad:mvaddstr(30, 90, 'padded')
+         pad:prefresh(30, 90, 0, 0, 5, 20)
+      end)
+      expect(screen).to_contain 'padded'
+  - it makes a subpad:
+      r = session(function(curses, stdscr)
+         local pad = curses.newpad(40, 100)
+         local sub = pad:subpad(10, 20, 5, 6)
+         return sub:getmaxyx()
+      end)
+      expect(r).to_equal {10, 20, n = 2}

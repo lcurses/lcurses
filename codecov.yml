@@ -1,6 +1,6 @@
 # Report coverage changes on commits and pull requests, without failing
-# them: spec coverage is measured in-process only, so code exercised by
-# spawned Lua subprocesses never counts towards these numbers.
+# them: the specs measure the Lua code in the processes that they fork to
+# run curses on a pseudo-terminal, but not the C code.
 coverage:
   status:
     project:

@@ -8,13 +8,217 @@ specify curses:
   - it reports the Lua version and package:
       expect(curses.version).to_match('^lcurses for Lua [%d.]+ / lcurses ')
 
+- describe initscr:
+  - it returns the standard screen:
+      r = session(function(curses, stdscr)
+         return tostring(stdscr), curses.stdscr() == stdscr
+      end)
+      expect(r[1]).to_match '^curses window %(0x'
+      expect(r[2]).to_be(true)
+  - it defines the constants:
+      r = session(function(curses)
+         local t = {}
+         for _, name in ipairs {
+            'A_BOLD', 'A_NORMAL', 'A_REVERSE', 'A_UNDERLINE', 'COLOR_RED',
+            'KEY_UP', 'KEY_DOWN', 'KEY_F1', 'KEY_BACKSPACE', 'ACS_HLINE',
+         } do
+            t[#t + 1] = type(curses[name])
+         end
+         return table.concat(t, ' ')
+      end)
+      expect(r[1]).to_be(('number '):rep(9) .. 'number')
+  - it knows when curses has ended:
+      r = session(function(curses)
+         local running = curses.isendwin()
+         curses.endwin()
+         return running, curses.isendwin()
+      end)
+      expect(r).to_equal {false, true, n = 2}
+  - it knows the size of the terminal:
+      r = session(function(curses)
+         return curses.lines(), curses.cols()
+      end)
+      expect(r).to_equal {24, 80, n = 2}
+
+- describe the terminal:
+  - it has a name:
+      r = session(function(curses)
+         return curses.termname(), type(curses.longname())
+      end)
+      expect(r).to_equal {'xterm', 'string', n = 2}
+  - it knows its special characters:
+      r = session(function(curses)
+         return type(curses.erasechar()), type(curses.killchar())
+      end)
+      expect(r).to_equal {'number', 'number', n = 2}
+  - it names and prints keys:
+      r = session(function(curses)
+         return curses.unctrl(1), curses.keyname(1), curses.keyname(curses.KEY_UP)
+      end)
+      expect(r).to_equal {'^A', '^A', 'KEY_UP', n = 3}
+  - it queries terminfo:
+      r = session(function(curses)
+         return curses.tigetnum 'cols', curses.tigetflag 'am', curses.tigetstr 'cup'
+      end)
+      expect(r[1]).to_be(80)
+      expect(r[2]).to_be(true)
+      expect(r[3]).to_match '\27%['
+  - it knows what the terminal can do:
+      r = session(function(curses)
+         return curses.has_ic(), curses.has_il(), curses.has_colors()
+      end)
+      expect(r).to_equal {true, true, true, n = 3}
+  - it makes noise:
+      r, screen = session(function(curses, stdscr)
+         curses.beep()
+         curses.flash()
+         stdscr:refresh()
+      end)
+      expect(screen).to_contain '\7'
+
+- describe modes:
+  - it sets the input modes:
+      r = session(function(curses)
+         return curses.raw(true), curses.cbreak(false), curses.echo(true),
+                curses.nl(false), curses.halfdelay(5), curses.curs_set(0)
+      end)
+      expect(r).to_equal {true, true, true, true, true, 1, n = 6}
+  - it flushes typed-ahead input:
+      r = session(function(curses, stdscr, ready)
+         stdscr:nodelay(true)
+         ready()
+         curses.napms(100)
+         curses.flushinp()
+         return select('#', stdscr:getch())
+      end, 'abc')
+      expect(r[1]).to_be(0)
+  - it pushes a character back to the input:
+      r = session(function(curses, stdscr)
+         curses.ungetch(string.byte 'z')
+         return stdscr:getch()
+      end)
+      expect(r[1]).to_be(string.byte 'z')
+
+- describe colors:
+  - it knows the number of colors and color pairs:
+      r = session(function(curses)
+         curses.start_color()
+         return curses.colors(), curses.color_pairs()
+      end)
+      expect(r).to_equal {8, 64, n = 2}
+  - it defines and reads a color pair:
+      r = session(function(curses)
+         curses.start_color()
+         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLUE)
+         return curses.pair_content(1)
+      end)
+      expect(r).to_equal {1, 4, n = 2}
+  - it writes in color:
+      r = session(function(curses, stdscr)
+         curses.start_color()
+         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLUE)
+         stdscr:attrset(curses.color_pair(1))
+         stdscr:mvaddstr(0, 0, 'x')
+         local ch = stdscr:mvwinch(0, 0)
+         return ch - string.byte 'x', curses.color_pair(1)
+      end)
+      expect(r[1]).to_be(r[2])
+      expect(r[2]).not_to_be(0)
+  - it uses the default colors:
+      r = session(function(curses)
+         curses.start_color()
+         return curses.use_default_colors()
+      end)
+      expect(r[1]).to_be(true)
+
+- describe resizing:
+  - it resizes the terminal:
+      r = session(function(curses, stdscr)
+         curses.resizeterm(10, 40)
+         return stdscr:getmaxyx()
+      end)
+      expect(r).to_equal {10, 40, n = 2}
+
 - describe the unified functions:
-  # These detect the number of arguments, but need a terminal to run.
-  - it defines each of them:
-      for _, name in ipairs {
-         'addch', 'addstr', 'attrset', 'clear', 'clrtobot', 'clrtoeol',
-         'getch', 'getnstr', 'getstr', 'getyx', 'keypad', 'move',
-         'refresh', 'timeout',
-      } do
-         expect(type(curses[name])).to_be 'function'
-      end
+  # These detect the number of arguments, to act on stdscr.
+  - it writes a string, optionally at a position:
+      r = session(function(curses, stdscr)
+         curses.addstr(1, 2, 'abc')
+         curses.addstr 'def'
+         return stdscr:mvwinnstr(1, 2, 6)
+      end)
+      expect(r[1]).to_be 'abcdef'
+  - it writes a character, optionally at a position:
+      r = session(function(curses, stdscr)
+         curses.addch(3, 4, 'a')
+         curses.addch 'b'
+         return stdscr:mvwinnstr(3, 4, 2)
+      end)
+      expect(r[1]).to_be 'ab'
+  - it moves the cursor and says where it is:
+      r = session(function(curses)
+         curses.move(5, 6)
+         return curses.getyx()
+      end)
+      expect(r).to_equal {5, 6, n = 2}
+  - it sets attributes:
+      r = session(function(curses, stdscr)
+         curses.attrset(curses.A_BOLD)
+         curses.addstr(0, 0, 'a')
+         return stdscr:mvwinch(0, 0) - string.byte 'a', curses.A_BOLD
+      end)
+      expect(r[1]).to_be(r[2])
+  - it clears the screen, from the cursor to the end of line or screen:
+      r = session(function(curses, stdscr)
+         curses.addstr(0, 0, 'abcd')
+         curses.addstr(1, 0, 'efgh')
+         curses.move(0, 2)
+         curses.clrtoeol()
+         local eol = stdscr:mvwinnstr(0, 0, 4)
+         curses.move(0, 0)
+         curses.clrtobot()
+         local bot = stdscr:mvwinnstr(1, 0, 4)
+         curses.addstr(2, 0, 'ijkl')
+         curses.clear()
+         return eol, bot, stdscr:mvwinnstr(2, 0, 4)
+      end)
+      expect(r[1]).to_match '^ab%s+$'
+      expect(r[2]).to_match '^%s+$'
+      expect(r[3]).to_match '^%s+$'
+  - it refreshes the screen:
+      r, screen = session(function(curses)
+         curses.addstr(0, 0, 'shown')
+         curses.refresh()
+      end)
+      expect(screen).to_contain 'shown'
+  - it reads a character as a string, optionally at a position:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         local a = curses.getch()
+         local b = curses.getch(4, 5)
+         return a, b, curses.getyx()
+      end, 'xy')
+      expect(r).to_equal {'x', 'y', 4, 5, n = 4}
+  - it reads a function key as a number:
+      r = session(function(curses, stdscr, ready)
+         curses.keypad(true)
+         ready()
+         return curses.getch(), curses.KEY_UP
+      end, '\27OA')
+      expect(r[1]).to_be(r[2])
+      expect(r[2]).not_to_be(nil)
+  - it reads nothing when there is no input before the timeout:
+      r = session(function(curses)
+         curses.timeout(10)
+         return select('#', curses.getch())
+      end)
+      expect(r[1]).to_be(0)
+  - it reads a string, optionally at a position:
+      r = session(function(curses, stdscr, ready)
+         ready()
+         local a = curses.getstr()
+         local b = curses.getstr(2, 3)
+         return a, b, curses.getyx()
+      end, 'one\ntwo\n')
+      expect(r[1]).to_be 'one'
+      expect(r[2]).to_be 'two'

@@ -72,10 +72,11 @@ build = {
    copy_directories = {'doc'},
 }
 
+-- luaposix gives the specs a pseudo-terminal to run curses on.
 test_dependencies = {
-   'ansicolors',
    'luacov',
-   'specl >= 16',
+   'luaposix >= 38',
+   'specl >= 17.2.2',
 }
 
 test = {
