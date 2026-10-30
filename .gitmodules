@@ -1,6 +1,0 @@
-[submodule "slingshot"]
-	path=slingshot
-	url=git://github.com/gvvaughan/slingshot.git
-[submodule "gnulib"]
-	path = gnulib
-	url = git://git.sv.gnu.org/gnulib

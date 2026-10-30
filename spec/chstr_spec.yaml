@@ -1,0 +1,77 @@
+before:
+  curses = require 'curses'
+
+specify curses.chstr:
+- describe new_chstr:
+  - it makes a buffer of the requested length:
+      expect(curses.new_chstr(7):len()).to_be(7)
+  - it fills the buffer with spaces:
+      cs = curses.new_chstr(2)
+      expect((cs:get(0))).to_be(32)
+      expect((cs:get(1))).to_be(32)
+  - it diagnoses a length that is not a number:
+      expect(curses.new_chstr('x')).to_raise 'int expected, got string'
+  - it diagnoses a length less than one:
+      expect(curses.new_chstr(0)).to_raise 'invalid chstr length'
+
+- describe set_ch:
+  - it sets a character from an integer or a string:
+      cs = curses.new_chstr(2)
+      cs:set_ch(0, 65)
+      cs:set_ch(1, 'b')
+      expect((cs:get(0))).to_be(65)
+      expect((cs:get(1))).to_be(98)
+  - it sets attributes:
+      -- ncurses A_BOLD, which curses only defines once it has a terminal.
+      cs = curses.new_chstr(1)
+      cs:set_ch(0, 'A', 2097152)
+      expect({cs:get(0)}).to_equal {65, 2097152, 0}
+  - it repeats:
+      cs = curses.new_chstr(4)
+      cs:set_ch(1, 'x', 0, 2)
+      expect((cs:get(0))).to_be(32)
+      expect((cs:get(1))).to_be(120)
+      expect((cs:get(2))).to_be(120)
+      expect((cs:get(3))).to_be(32)
+  - it ignores offsets outside the buffer:
+      cs = curses.new_chstr(1)
+      cs:set_ch(1, 'x')
+      cs:set_ch(-1, 'x')
+      expect((cs:get(0))).to_be(32)
+
+- describe set_str:
+  - it sets a run of characters:
+      cs = curses.new_chstr(5)
+      cs:set_str(1, 'abc')
+      expect((cs:get(0))).to_be(32)
+      expect((cs:get(1))).to_be(97)
+      expect((cs:get(3))).to_be(99)
+      expect((cs:get(4))).to_be(32)
+  - it truncates at the end of the buffer:
+      cs = curses.new_chstr(3)
+      cs:set_str(1, 'abcdef')
+      expect(cs:len()).to_be(3)
+      expect((cs:get(2))).to_be(98)
+  - it ignores a negative offset:
+      cs = curses.new_chstr(2)
+      cs:set_str(-1, 'ab')
+      expect((cs:get(0))).to_be(32)
+
+- describe get:
+  - it returns nothing for an offset outside the buffer:
+      cs = curses.new_chstr(2)
+      expect({cs:get(2)}).to_equal {}
+      expect({cs:get(-1)}).to_equal {}
+
+- describe dup:
+  - it copies the contents:
+      cs = curses.new_chstr(3)
+      cs:set_str(0, 'abc')
+      dup = cs:dup()
+      expect(dup:len()).to_be(3)
+      expect((dup:get(2))).to_be(99)
+  - it makes an independent buffer:
+      cs = curses.new_chstr(1)
+      dup = cs:dup()
+      dup:set_ch(0, 'z')
+      expect((cs:get(0))).to_be(32)

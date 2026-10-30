@@ -1,0 +1,29 @@
+--[[
+ Curses binding for Lua 5.1, 5.2, 5.3, 5.4 & 5.5
+ Copyright (C) 2013-2026 Gary V. Vaughan
+ Copyright (C) 2009-2013 Reuben Thomas <rrt@sc3d.org>
+ Copyright (C) 2004-2007 Tiago Dionizio <tiago.dionizio@gmail.com>
+]]
+
+luke_format = 0
+
+package  = 'lcurses'
+version  = '$USER'
+
+ldocs    = 'build-aux/config.ld.in'
+
+release  = {
+   news               = 'NEWS.md',
+   rockspec           = 'lcurses-dev-1.rockspec',
+   check_dependencies = true,
+   add                = {'doc/'},
+   replacements       = {
+      {['README.md']  = {
+         {['?branch=master'] = '?branch=release-v@version@'},
+      }},
+   },
+   ['gh-pages']       = {
+      {['.']    = 'doc/'},
+      command   = 'rm -f examples/*.lua',
+   },
+}

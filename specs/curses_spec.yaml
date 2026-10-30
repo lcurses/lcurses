@@ -1,4 +1,0 @@
-describe curses:
-- it can be loaded with require:
-    curses = require "curses"
-    expect (curses).not_to_be (nil)

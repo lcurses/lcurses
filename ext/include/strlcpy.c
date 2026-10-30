@@ -30,9 +30,7 @@
 #ifndef LCURSES_STRLCPY_C
 #define LCURSES_STRLCPY_C 1
 
-#include <config.h>
-
-#ifndef HAVE_STRLCPY
+#if !HAVE_STRLCPY
 
 #if defined LIBC_SCCS && ! defined lint
 static char *rcsid = "$OpenBSD: strlcpy.c,v 1.4 1999/05/01 18:56:41 millert Exp $";

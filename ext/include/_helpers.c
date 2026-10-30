@@ -1,5 +1,5 @@
 /*
- * POSIX library for Lua 5.1, 5.2 & 5.3.
+ * Curses binding for Lua 5.1, 5.2, 5.3, 5.4 & 5.5.
  * (c) Gary V. Vaughan <gary@vaughan.pe>, 2013-2017
  * (c) Reuben Thomas <rrt@sc3d.org> 2010-2013
  * (c) Natanael Copa <natanael.copa@gmail.com> 2008-2010
@@ -12,8 +12,6 @@
 
 #ifndef LCURSES__HELPERS_C
 #define LCURSES__HELPERS_C 1
-
-#include <config.h>
 
 #include <errno.h>
 #include <grp.h>
@@ -53,7 +51,7 @@
 #  endif
 #endif
 
-#if LUA_VERSION_NUM == 502 || LUA_VERSION_NUM == 503
+#if LUA_VERSION_NUM >= 502
 #  define lua_objlen lua_rawlen
 #  define lua_strlen lua_rawlen
 #  define luaL_openlib(L,n,l,nup) luaL_setfuncs((L),(l),(nup))

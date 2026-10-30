@@ -1,7 +1,7 @@
 /*
- * Curses binding for Lua 5.1, 5.2 & 5.3.
+ * Curses binding for Lua 5.1, 5.2, 5.3, 5.4 & 5.5.
  *
- * (c) Gary V. Vaughan <gary@vaughan.pe> 2013-2017
+ * (c) Gary V. Vaughan <gary@vaughan.pe> 2013-2026
  * (c) Reuben Thomas <rrt@sc3d.org> 2009-2012
  * (c) Tiago Dionizio <tiago.dionizio AT gmail.com> 2004-2007
  *
@@ -80,12 +80,8 @@
 */
 
 
-#include <config.h>
-
 #include "_helpers.c"
 #include "strlcpy.c"
-
-#if HAVE_CURSES
 
 #include "curses/chstr.c"
 #include "curses/window.c"
@@ -1260,12 +1256,10 @@ Ptigetstr (lua_State *L)
 		lua_pushstring(L, res);
 	return 1;
 }
-#endif
 
 
 static const luaL_Reg curseslib[] =
 {
-#if HAVE_CURSES
 	LCURSES_FUNC( Pbaudrate		),
 	LCURSES_FUNC( Pbeep		),
 	LCURSES_FUNC( Pcbreak		),
@@ -1321,7 +1315,6 @@ static const luaL_Reg curseslib[] =
 	LCURSES_FUNC( Punctrl		),
 	LCURSES_FUNC( Pungetch		),
 	LCURSES_FUNC( Puse_default_colors),
-#endif
 	{NULL, NULL}
 };
 
@@ -1556,15 +1549,13 @@ luaopen_curses_c(lua_State *L)
 	luaopen_curses_chstr(L);
 
 	luaL_register(L, "curses", curseslib);
-	lua_pushliteral(L, "lcurses for " LUA_VERSION " / " PACKAGE_STRING);
+	lua_pushliteral(L, "lcurses for " LUA_VERSION " / " PACKAGE " " VERSION);
 	lua_setfield(L, -2, "version");
 
-#if HAVE_CURSES
 	lua_pushstring(L, "initscr");
 	lua_pushvalue(L, -2);
 	lua_pushcclosure(L, Pinitscr, 1);
 	lua_settable(L, -3);
-#endif
 
 	return 1;
 }

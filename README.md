@@ -1,34 +1,28 @@
 lcurses
 =======
 
-By the [lcurses project][GitHub]
+Copyright (C) 2004-2026 lcurses authors
 
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
-[![travis-ci status](https://secure.travis-ci.org/lcurses/lcurses.png?branche=master)](http://travis-ci.org/lcurses/lcurses/builds)
-[![Stories in Ready](https://badge.waffle.io/lcurses/lcurses.png?label=ready&title=Ready)](https://waffle.io/lcurses/lcurses)
+[![License](https://img.shields.io/:license-mit-blue.svg)](https://mit-license.org)
+[![workflow status](https://github.com/lcurses/lcurses/actions/workflows/spec.yml/badge.svg?branch=master)](https://github.com/lcurses/lcurses/actions)
+[![codecov.io](https://codecov.io/github/lcurses/lcurses/coverage.svg?branch=master)](https://codecov.io/github/lcurses/lcurses?branch=master)
 
-
-lcurses is a curses binding for LuaJIT, [Lua][] 5.1, 5.2 and 5.3; like many
-Lua modules it simply binds to the C APIs of the curses library, so it won't
-build unless you have the headers and libraries to compile and link against
-an installed curses library already on your system.  However, in the past
-it has been tested against pdcurses, ncurses and a few proprietary curses
-implementations.
+lcurses is a curses binding for [Lua][] 5.1 (including LuaJIT), 5.2, 5.3,
+5.4 and 5.5.  Like many Lua modules it simply binds to the C APIs of the
+curses library, so it won't build unless you have the headers and
+libraries to compile and link against an installed curses library
+already on your system.  However, in the past it has been tested against
+pdcurses, ncurses and a few proprietary curses implementations.
 
 For a while, lcurses was shipped inside [luaposix][], but now it has its
 own repository and release schedule again.
 
 Documentation is generated via [LDoc][] and is available at:
 
-  http://lcurses.github.io/lcurses/
+  https://lcurses.github.io/lcurses/
 
 lcurses is released under the [MIT license][mit] (the same license as
 Lua itself).  There is no warranty.
-
-[github]: https://github.com/lcurses/lcurses "lcurses repository"
-[lua]: http://www.lua.org/ "The Lua Project"
-[luaposix]: https://github.com/luaposix/luaposix "luaposix repository"
-[mit]: http://mit-license.org "MIT license"
 
 
 Installation
@@ -44,25 +38,25 @@ install the latest release (recommended):
 To install current git master (for testing):
 
 ```bash
-    luarocks install https://raw.githubusercontent.com/lcurses/lcurses/master/lcurses-git-1.rockspec
+    luarocks install https://raw.githubusercontent.com/lcurses/lcurses/master/lcurses-dev-1.rockspec
 ```
 
-To install without LuaRocks, check out the sources from the
-[repository][GitHub] and run the following commands:
+To install into a tree of your own from a clone of the [repository][github],
+and run the specs:
 
 ```bash
     cd lcurses
-    ./bootstrap
-    ./configure --prefix=INSTALLATION-ROOT-DIRECTORY
-    make all check install
+    luarocks --tree LCURSES-INSTALL-TREE make lcurses-dev-1.rockspec
+    luarocks --tree LCURSES-INSTALL-TREE test
 ```
 
-Dependencies are listed in the dependencies entry of the file
-`rockspec.conf`. You will also need Autoconf and Automake.
+LuaRocks builds lcurses with [luarocks-build-luke][], which it installs
+for the build, so there is no build without LuaRocks.  The build looks
+for the first of the `ncursesw`, `ncurses` and `curses` libraries that
+the host has, and for the headers that go with it.
 
-See the Automake generated INSTALL file for `configure`
-instructions, and use `configure --help` after a successful
-`./bootstrap` for details of available command-line switches.
+The dependencies are listed in the `dependencies` entry of the file
+[rockspec][L19].
 
 
 Bugs reports & patches
@@ -81,6 +75,12 @@ points when writing new code:
    indentation using SPACEs in Lua sources.
 
 
+[github]: https://github.com/lcurses/lcurses "lcurses repository"
 [issues]: https://github.com/lcurses/lcurses/issues "lcurses issues"
-[LuaRocks]: http://www.luarocks.org "Lua package manager"
-[LDoc]: https://github.com/stevedonovan/LDoc "Lua documentation generator"
+[L19]: https://github.com/lcurses/lcurses/blob/master/lcurses-dev-1.rockspec#L19
+[LDoc]: https://github.com/lunarmodules/LDoc "Lua documentation generator"
+[lua]: https://www.lua.org/ "The Lua Project"
+[luarocks]: https://luarocks.org "Lua package manager"
+[luarocks-build-luke]: https://luarocks.org/modules/gvvaughan/luarocks-build-luke
+[luaposix]: https://github.com/luaposix/luaposix "luaposix repository"
+[mit]: https://mit-license.org "MIT license"

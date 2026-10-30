@@ -1,0 +1,66 @@
+name: spec
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ 'master' ]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        lua-version: ["5.5", "5.4", "5.3", "5.2", "5.1", "luajit"]
+
+    runs-on: ubuntu-latest
+
+    # id-token lets codecov-action authenticate uploads with OIDC.
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: luarocks/gh-actions-lua@v14
+        with:
+          luaVersion: ${{ matrix.lua-version }}
+
+      - uses: luarocks/gh-actions-luarocks@v7
+
+      - name: install
+        run: |
+          sudo apt-get update -q -q --yes
+          sudo apt-get install -y libncurses-dev
+          # LuaRocks 3.13.0 crashes writing the namespace of a namespaced
+          # dependency on Lua 5.1 (luarocks/luarocks#1831), so install
+          # gvvaughan/ldoc by hand, before anything else needs an ldoc.
+          luarocks install --server=https://luarocks.org/manifests/gvvaughan ldoc
+          printf gvvaughan > "$(luarocks show --rock-dir ldoc)/rock_namespace"
+          # Until luke is released, install it from its development rockspec.
+          luarocks install https://raw.githubusercontent.com/gvvaughan/luke/master/luke-dev-1.rockspec
+          luarocks test --prepare
+
+      - name: build
+        run: |
+          luarocks make --force
+
+      - name: docs
+        run: |
+          # The rock doesn't build LDocs, but a release does, so find errors
+          # in the doc comments now.  LDOC makes a missing ldoc an error.
+          luke LDOC="ldoc --fatalwarnings"
+
+      - name: test
+        run: |
+          luarocks test
+
+      - uses: codecov/codecov-action@v7
+        with:
+          # Pull requests from forks get no OIDC token, but Codecov accepts
+          # tokenless uploads from forks of public repositories.
+          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+          files: luacov.report.out
+          flags: lua-${{ matrix.lua-version }}
+          fail_ci_if_error: true

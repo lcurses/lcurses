@@ -1,0 +1,7 @@
+modules = {
+   ['curses'] = 'lib/curses.lua',
+}
+
+runreport = true
+
+tick = true

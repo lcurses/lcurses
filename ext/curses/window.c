@@ -1,7 +1,7 @@
 /*
- * Curses binding for Lua 5.1, 5.2 & 5.3.
+ * Curses binding for Lua 5.1, 5.2, 5.3, 5.4 & 5.5.
  *
- * (c) Gary V. Vaughan <gary@vaughan.pe> 2013-2017
+ * (c) Gary V. Vaughan <gary@vaughan.pe> 2013-2026
  * (c) Reuben Thomas <rrt@sc3d.org> 2009-2012
  * (c) Tiago Dionizio <tiago.dionizio AT gmail.com> 2004-2007
  *
@@ -35,8 +35,6 @@
 
 @classmod curses.window
 */
-
-#include <config.h>
 
 #include "_helpers.c"
 
@@ -1937,7 +1935,7 @@ luaopen_curses_window(lua_State *L)
 	lua_pop(L, 1);				/* pop mt */
 
 	/* t.version = "curses.window..." */
-	lua_pushliteral(L, "curses.window for " LUA_VERSION " / " PACKAGE_STRING);
+	lua_pushliteral(L, "curses.window for " LUA_VERSION " / " PACKAGE " " VERSION);
 	lua_setfield(L, t, "version");
 
 	return 1;

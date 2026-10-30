@@ -2,6 +2,21 @@
 
 ## Noteworthy changes in release ?.? (????-??-??) [?]
 
+### Incompatible changes
+
+  - lcurses is built from the `build` table of its rockspec, by the
+    `luarocks-build-luke` LuaRocks build backend, which LuaRocks
+    installs for the build, so there is no `./bootstrap`, `./configure`
+    or `make`, and no build without LuaRocks.  The rock does not build
+    LDocs, which `luke release` builds and commits.
+
+### New Features
+
+  - Support for Lua 5.4 and 5.5.
+
+  - The build finds the first of the `ncursesw`, `ncurses` and `curses`
+    libraries that the host has, and fails if it has none.
+
 
 ## Noteworthy changes in release 9.0.0 (2016-01-10) [stable]
 

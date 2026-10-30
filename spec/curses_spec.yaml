@@ -1,0 +1,20 @@
+before:
+  curses = require 'curses'
+
+specify curses:
+- describe require:
+  - it can be loaded:
+      expect(curses).not_to_be(nil)
+  - it reports the Lua version and package:
+      expect(curses.version).to_match('^lcurses for Lua [%d.]+ / lcurses ')
+
+- describe the unified functions:
+  # These detect the number of arguments, but need a terminal to run.
+  - it defines each of them:
+      for _, name in ipairs {
+         'addch', 'addstr', 'attrset', 'clear', 'clrtobot', 'clrtoeol',
+         'getch', 'getnstr', 'getstr', 'getyx', 'keypad', 'move',
+         'refresh', 'timeout',
+      } do
+         expect(type(curses[name])).to_be 'function'
+      end
