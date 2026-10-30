@@ -1,0 +1,52 @@
+before:
+  terminal = require 'terminal'
+
+specify terminal:
+- describe run:
+  - it returns what the function returns, and how many values:
+      r = terminal.run(function() return 1, 'two', true, nil end)
+      expect(r.n).to_be(4)
+      expect({r[1], r[2], r[3], r[4]}).to_equal {1, 'two', true, nil}
+  - it returns nothing from a function that returns nothing:
+      r = terminal.run(function() end)
+      expect(r.n).to_be(0)
+  - it returns strings that need quoting:
+      r = terminal.run(function() return 'a "b"\n\0\\' end)
+      expect(r[1]).to_be 'a "b"\n\0\\'
+  - it raises an error from the function:
+      expect(terminal.run(function() error 'boom' end)).to_raise 'boom'
+  - it gives the function a terminal:
+      r = terminal.run(function()
+         local unistd = require 'posix'.unistd
+         return unistd.isatty(0), unistd.isatty(1), unistd.isatty(2)
+      end)
+      expect(r).to_equal {1, 1, 1, n = 3}
+  - it captures what the function writes to the terminal:
+      r, output = terminal.run(function() io.stdout:write 'hello' end)
+      expect(output).to_contain 'hello'
+  - it runs the function in another process:
+      r = terminal.run(function()
+         return require 'posix'.unistd.getpid()
+      end)
+      expect(r[1]).not_to_be(require 'posix'.unistd.getpid())
+  - it describes an xterm of 24 lines and 80 columns:
+      r = terminal.run(function()
+         return os.getenv 'TERM', os.getenv 'LINES', os.getenv 'COLUMNS'
+      end)
+      expect(r).to_equal {'xterm', '24', '80', n = 3}
+  - it describes another terminal when asked to:
+      r = terminal.run(function()
+         return os.getenv 'TERM', os.getenv 'LINES', os.getenv 'COLUMNS'
+      end, {term = 'vt100', lines = 10, columns = 40})
+      expect(r).to_equal {'vt100', '10', '40', n = 3}
+  - it types at the terminal once the function is ready:
+      r = terminal.run(function(ready)
+         local unistd = require 'posix'.unistd
+         ready()
+         return unistd.read(0, 2)
+      end, {input = 'x\n'})
+      expect(r[1]).to_be 'x\n'
+  - it gives up on a function that takes too long:
+      expect(terminal.run(function()
+         require 'posix'.unistd.sleep(5)
+      end, {timeout = 200})).to_raise 'timed out'
