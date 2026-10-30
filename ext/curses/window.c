@@ -1598,7 +1598,7 @@ Wmvwinsstr(lua_State *L)
 	int y = checkint(L, 2);
 	int x = checkint(L, 3);
 	const char *str = luaL_checkstring(L, 4);
-	return pushokresult(mvwinsnstr(w, y, x, str, lua_strlen(L, 2)));
+	return pushokresult(mvwinsnstr(w, y, x, str, lua_strlen(L, 4)));
 }
 
 

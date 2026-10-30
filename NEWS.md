@@ -23,6 +23,10 @@
     there is no input before a timeout, or without delay, instead of
     raising an error from comparing `nil` with a number.
 
+  - `curses.window.mvwinsstr` inserts the whole of its string in Lua 5.1
+    and LuaJIT, rather than only as many characters as there are digits in
+    its `y` argument.  In Lua 5.2 and later it only happened to work.
+
   - `curses.new_chstr` fills the new buffer with plain spaces, as it is
     documented to, rather than with spaces that also had garbage attribute
     and color bits set.
