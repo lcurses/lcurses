@@ -19,6 +19,10 @@
 
 ### Bugs Fixed
 
+  - `curses.getch` returns nothing, as `curses.window.getch` does, when
+    there is no input before a timeout, or without delay, instead of
+    raising an error from comparing `nil` with a number.
+
   - `curses.new_chstr` fills the new buffer with plain spaces, as it is
     documented to, rather than with spaces that also had garbage attribute
     and color bits set.

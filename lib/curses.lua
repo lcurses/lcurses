@@ -34,7 +34,10 @@ function M.getch (...)
   else
     c = curses.stdscr():getch()
   end
-  if c < 256 then
+  if c == nil then
+    -- no input before the timeout, or without delay
+    return
+  elseif c < 256 then
     return string.char(c)
   end
   -- could kludge-test for utf8, e.g. c3 a9 20  c3 aa 20  c3 ab 20  e2 82 ac 0a
