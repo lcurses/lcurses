@@ -71,6 +71,17 @@ chstr_new(lua_State *L, int len)
 }
 
 
+/* fill chstr with plain spaces: a memset would set attribute bits too */
+static void
+chstr_blank(chstr *cs)
+{
+	unsigned int i;
+
+	for (i = 0; i < cs->len; ++i)
+		cs->str[i] = ' ';
+}
+
+
 /* get chstr from lua (convert if needed) */
 static chstr *
 checkchstr(lua_State *L, int narg)
@@ -243,7 +254,7 @@ C__call(lua_State *L)
 {
 	int len = checkint(L, 2);
 	chstr* ncs = chstr_new(L, len);
-	memset(ncs->str, ' ', len * sizeof(chtype));
+	chstr_blank(ncs);
 	return 1;
 }
 

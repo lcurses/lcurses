@@ -17,6 +17,12 @@
   - The build finds the first of the `ncursesw`, `ncurses` and `curses`
     libraries that the host has, and fails if it has none.
 
+### Bugs Fixed
+
+  - `curses.new_chstr` fills the new buffer with plain spaces, as it is
+    documented to, rather than with spaces that also had garbage attribute
+    and color bits set.
+
 
 ## Noteworthy changes in release 9.0.0 (2016-01-10) [stable]
 

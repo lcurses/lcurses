@@ -102,7 +102,7 @@ Pnew_chstr(lua_State *L)
 {
 	int len = checkint(L, 1);
 	chstr* ncs = chstr_new(L, len);  /* defined in curses/chstr.c */
-	memset(ncs->str, ' ', len*sizeof(chtype));
+	chstr_blank(ncs);
 	return 1;
 }
 

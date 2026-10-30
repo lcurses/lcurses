@@ -5,10 +5,10 @@ specify curses.chstr:
 - describe new_chstr:
   - it makes a buffer of the requested length:
       expect(curses.new_chstr(7):len()).to_be(7)
-  - it fills the buffer with spaces:
+  - it fills the buffer with plain spaces:
       cs = curses.new_chstr(2)
-      expect((cs:get(0))).to_be(32)
-      expect((cs:get(1))).to_be(32)
+      expect({cs:get(0)}).to_equal {32, 0, 0}
+      expect({cs:get(1)}).to_equal {32, 0, 0}
   - it diagnoses a length that is not a number:
       expect(curses.new_chstr('x')).to_raise 'int expected, got string'
   - it diagnoses a length less than one:
