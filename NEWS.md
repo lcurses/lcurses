@@ -2,6 +2,9 @@
 
 ## Noteworthy changes in release ?.? (????-??-??) [?]
 
+
+## Noteworthy changes in release 10 (2026-11-11) [stable]
+
 ### Incompatible changes
 
   - lcurses is built from the `build` table of its rockspec, by the
