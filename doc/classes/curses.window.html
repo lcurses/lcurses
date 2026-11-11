@@ -1,0 +1,3668 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>lcurses 10 Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>lcurses 10</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/curses.chstr.html">curses.chstr</a></li>
+  <li><strong>curses.window</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/curses.html">curses</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/curses.lua.html">curses.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>curses.window</code></h1>
+<p>Curses Window objects.</p>
+<p>
+
+
+<p> The methods documented on this page are available on any Curses Window
+ object, such as created by:</p>
+
+
+<pre>
+stdscr = curses.<span class="function-name">initscr</span> ()
+window = curses.<span class="function-name">newwin</span> (<span class="number">25</span>, <span class="number">80</span>, <span class="number">0</span>, <span class="number">0</span>)
+</pre>
+
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:addch">curses.window:addch (ch)</a></td>
+	<td class="summary">Advance the cursor after writing a character at the old position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:addchstr">curses.window:addchstr (chstr[, n])</a></td>
+	<td class="summary">Copy a <a href="../classes/curses.chstr.html#">curses.chstr</a> starting at the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:addstr">curses.window:addstr (str[, n])</a></td>
+	<td class="summary">Copy a Lua string starting at the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:attroff">curses.window:attroff (attrs)</a></td>
+	<td class="summary">Turn off the given attributes for subsequent writes to the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:attron">curses.window:attron (attrs)</a></td>
+	<td class="summary">Turn on the given attributes for subsequent writes to the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:attrset">curses.window:attrset (attrs)</a></td>
+	<td class="summary">Set the given attributes for subsequent writes to the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:border">curses.window:border ([ls[, rs[, ts[, bs[, tl[, tr[, bl[, br]]]]]]]])</a></td>
+	<td class="summary">Draw a border around a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:box">curses.window:box (verch, horch)</a></td>
+	<td class="summary">Draw a box around a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:clear">curses.window:clear ()</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:erase">erase</a> and then <a href="../classes/curses.window.html#curses.window:clearok">clearok</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:clearok">curses.window:clearok (bf)</a></td>
+	<td class="summary">The next call to <a href="../classes/curses.window.html#curses.window:refresh">refresh</a> will clear and completely redraw the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:clone">curses.window:clone ()</a></td>
+	<td class="summary">Make a duplicate of a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:close">curses.window:close ()</a></td>
+	<td class="summary">Free all the resources associated with a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:clrtobot">curses.window:clrtobot ()</a></td>
+	<td class="summary">Write blanks to every character position after the cursor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:clrtoeol">curses.window:clrtoeol ()</a></td>
+	<td class="summary">Write blanks from the cursor to the end of the current line.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:copywin">curses.window:copywin (dst, st, sl, dt, dl, db, dr, overlay)</a></td>
+	<td class="summary">Overlay a rectangle of this window over another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:cursyncup">curses.window:cursyncup ()</a></td>
+	<td class="summary">Mark cursor position of ancestors of a window for refresh.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:delch">curses.window:delch ()</a></td>
+	<td class="summary">Delete the character under the cursor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:deleteln">curses.window:deleteln ()</a></td>
+	<td class="summary">Move the lines below the cursor up, to delete the current line.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:derive">curses.window:derive (nlines, ncols, begin_y, begin_x)</a></td>
+	<td class="summary">Create a new derived window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:echoch">curses.window:echoch (ch)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:addch">addch</a> then <a href="../classes/curses.window.html#curses.window:refresh">refresh</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:erase">curses.window:erase ()</a></td>
+	<td class="summary">Write blanks to every character position in the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getbegyx">curses.window:getbegyx ()</a></td>
+	<td class="summary">Fetch the absolute top-left coordinates of a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getbkgd">curses.window:getbkgd ()</a></td>
+	<td class="summary">Fetch the current background attribute for the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getch">curses.window:getch ()</a></td>
+	<td class="summary">Read a character from the window input.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getmaxyx">curses.window:getmaxyx ()</a></td>
+	<td class="summary">Fetch the absolute bottom-right coordinates of a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getparyx">curses.window:getparyx ()</a></td>
+	<td class="summary">Fetch the parent-relative coordinates of a subwindow.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getstr">curses.window:getstr ([n])</a></td>
+	<td class="summary">Read characters up to the next newline from the window input.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:getyx">curses.window:getyx ()</a></td>
+	<td class="summary">Fetch the cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:hline">curses.window:hline (ch, n)</a></td>
+	<td class="summary">Draw a row of characters from the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:idcok">curses.window:idcok (bf)</a></td>
+	<td class="summary">Use hardware character insert and delete on supporting terminals.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:idlok">curses.window:idlok (bf)</a></td>
+	<td class="summary">Use hardware line insert and delete on supporting terminals.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:immedok">curses.window:immedok (bf)</a></td>
+	<td class="summary">Automatically call <a href="../classes/curses.window.html#curses.window:refresh">refresh</a> whenever the window content is changed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:insertln">curses.window:insertln ()</a></td>
+	<td class="summary">Move the current line and those below down one line, leaving a new blank line.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:intrflush">curses.window:intrflush (bf)</a></td>
+	<td class="summary">Set the flush on interrupt behaviour for the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:is_linetouched">curses.window:is_linetouched (line)</a></td>
+	<td class="summary">Has a particular window line changed since the last refresh?</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:is_wintouched">curses.window:is_wintouched ()</a></td>
+	<td class="summary">Has a window changed since the last refresh?</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:keypad">curses.window:keypad ([on])</a></td>
+	<td class="summary">Set the single value keypad keys behaviour for the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:leaveok">curses.window:leaveok (bf)</a></td>
+	<td class="summary">No need to force synchronisation of hardware cursor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:meta">curses.window:meta (on)</a></td>
+	<td class="summary">Force 8-bit (or 7-bit) input characters for the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:move">curses.window:move (y, x)</a></td>
+	<td class="summary">Change the cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:move_derived">curses.window:move_derived (par_y, par_x)</a></td>
+	<td class="summary">Move the position of a derived window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:move_window">curses.window:move_window (y, x)</a></td>
+	<td class="summary">Move the position of a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvaddch">curses.window:mvaddch (y, x, ch)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a>, then <a href="../classes/curses.window.html#curses.window:addch">addch</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvaddchstr">curses.window:mvaddchstr (y, x[, n])</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:addchstr">addchstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvaddstr">curses.window:mvaddstr (y, x, str[, n])</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:addstr">addstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvdelch">curses.window:mvdelch (y, x)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:delch">delch</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvgetch">curses.window:mvgetch (y, x)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:getch">getch</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvgetstr">curses.window:mvgetstr (y, x[, n=-1])</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:getstr">getstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvhline">curses.window:mvhline (y, x, ch, n)</a></td>
+	<td class="summary">Move the cursor, then draw a row of characters from the new cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvvline">curses.window:mvvline (y, x, ch, n)</a></td>
+	<td class="summary">Move the cursor, then draw a column of characters from the new cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvwinch">curses.window:mvwinch (y, x)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winch">winch</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvwinchnstr">curses.window:mvwinchnstr (y, x, n)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winchnstr">winchnstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvwinnstr">curses.window:mvwinnstr (y, x, n)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winnstr">winnstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvwinsch">curses.window:mvwinsch (y, x, ch)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winsch">winsch</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvwinsnstr">curses.window:mvwinsnstr (y, x, str, n)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winsnstr">winsnstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:mvwinsstr">curses.window:mvwinsstr (y, x, str)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winsstr">winsstr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:nodelay">curses.window:nodelay (on)</a></td>
+	<td class="summary">Force <a href="../classes/curses.window.html#curses.window:getch">getch</a> to be non-blocking.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:notimeout">curses.window:notimeout (bf)</a></td>
+	<td class="summary">Return input immediately from this window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:noutrefresh">curses.window:noutrefresh ()</a></td>
+	<td class="summary">Copy the window backing screen to the virtual screen.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:overlay">curses.window:overlay (dst)</a></td>
+	<td class="summary">Overlay this window on top of another non-destructively.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:overwrite">curses.window:overwrite (dst)</a></td>
+	<td class="summary">Destructively overwrite another window with this one.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:pechochar">curses.window:pechochar (ch)</a></td>
+	<td class="summary">An efficient equivalent to <a href="../classes/curses.window.html#curses.window:addch">addch</a> followed by <a href="../classes/curses.window.html#curses.window:refresh">refresh</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:pnoutrefresh">curses.window:pnoutrefresh (st, sl, dt, dl, db, dr)</a></td>
+	<td class="summary">Equivalent to <a href="../classes/curses.window.html#curses.window:noutrefresh">noutrefresh</a> for use with pad windows.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:prefresh">curses.window:prefresh (st, sl, dt, dl, db, dr)</a></td>
+	<td class="summary">Equivalent to <a href="../classes/curses.window.html#curses.window:refresh">refresh</a> for use with pad windows.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:redrawln">curses.window:redrawln (beg_line, num_lines)</a></td>
+	<td class="summary">Mark a range of lines in a window as corrupted and in need of redrawing.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:redrawwin">curses.window:redrawwin ()</a></td>
+	<td class="summary">Mark a window as having corrupted display that needs fully redrawing.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:refresh">curses.window:refresh ()</a></td>
+	<td class="summary">Refresh the window terminal display from the virtual screen.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:resize">curses.window:resize (height, width)</a></td>
+	<td class="summary">Change the size of a window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:scrl">curses.window:scrl (n)</a></td>
+	<td class="summary">Scroll the window up <em>n</em> lines.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:scrollok">curses.window:scrollok (bf)</a></td>
+	<td class="summary">Scroll up one line when the cursor writes to the last screen position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:standend">curses.window:standend ()</a></td>
+	<td class="summary">Turn off all attributes for subsequent writes to the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:standout">curses.window:standout ()</a></td>
+	<td class="summary">Set <code>A_STANDOUT</code> for subsequent writes to the window.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:sub">curses.window:sub (nlines, ncols, begin_y, begin_x)</a></td>
+	<td class="summary">Create a new subwindow.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:subpad">curses.window:subpad (nlines, ncols, begin_y, begin_x)</a></td>
+	<td class="summary">Return a new subpad window object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:syncdown">curses.window:syncdown ()</a></td>
+	<td class="summary">Mark child windows for refresh.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:syncok">curses.window:syncok (bf)</a></td>
+	<td class="summary">Automatically mark ancestors of a changed window for refresh.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:syncup">curses.window:syncup ()</a></td>
+	<td class="summary">Mark ancestors of a window for refresh.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:timeout">curses.window:timeout (delay)</a></td>
+	<td class="summary">For differentiating user input from terminal control sequences.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:touch">curses.window:touch ([changed])</a></td>
+	<td class="summary">Set the changed state of a window since the last refresh.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:touchline">curses.window:touchline (y, n[, changed])</a></td>
+	<td class="summary">Mark a range of lines as changed since the last refresh.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:vline">curses.window:vline (ch, n)</a></td>
+	<td class="summary">Draw a column of characters from the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:wbkgd">curses.window:wbkgd (ch)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:wbkgdset">wbkgdset</a> and then set the background of every position accordingly.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:wbkgdset">curses.window:wbkgdset (ch)</a></td>
+	<td class="summary">Set the background attributes for subsequently written characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winch">curses.window:winch ()</a></td>
+	<td class="summary">Fetch the attributed character at the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winchnstr">curses.window:winchnstr (n)</a></td>
+	<td class="summary">Fetch attributed characters from cursor position up to rightmost window position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winnstr">curses.window:winnstr (n)</a></td>
+	<td class="summary">Fetch a string from cursor position up to rightmost window position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winsch">curses.window:winsch (ch)</a></td>
+	<td class="summary">Insert an attributed character before the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winsdelln">curses.window:winsdelln (n)</a></td>
+	<td class="summary">Call <a href="../classes/curses.window.html#curses.window:deleteln">deleteln</a> <em>n</em> times.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winsnstr">curses.window:winsnstr (str, n)</a></td>
+	<td class="summary">Like <a href="../classes/curses.window.html#curses.window:winsstr">winsstr</a>, but no more than <em>n</em> characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:winsstr">curses.window:winsstr (str)</a></td>
+	<td class="summary">Insert a string of characters before the current cursor position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:wsetscrreg">curses.window:wsetscrreg (top, bot)</a></td>
+	<td class="summary">Set a software scrolling region for the window.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#curses.window:__tostring">curses.window:__tostring ()</a></td>
+	<td class="summary">Unique string representation of a <a href="../classes/curses.window.html#">curses.window</a>.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "curses.window:addch"></a>
+    <strong>curses.window:addch (ch)</strong>
+    </dt>
+    <dd>
+    Advance the cursor after writing a character at the old position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/waddch.html">waddch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:addchstr"></a>
+    <strong>curses.window:addchstr (chstr[, n])</strong>
+    </dt>
+    <dd>
+    Copy a <a href="../classes/curses.chstr.html#">curses.chstr</a> starting at the current cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">chstr</span>
+            <span class="types"><span class="type">int</span></span>
+         cs
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/waddchnstr.html">waddchnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:addstr"></a>
+    <strong>curses.window:addstr (str[, n])</strong>
+    </dt>
+    <dd>
+    Copy a Lua string starting at the current cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/waddnstr.html">waddnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:attroff"></a>
+    <strong>curses.window:attroff (attrs)</strong>
+    </dt>
+    <dd>
+    Turn off the given attributes for subsequent writes to the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">attrs</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wattroff.html">wattroff(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:standend">standend</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:attron"></a>
+    <strong>curses.window:attron (attrs)</strong>
+    </dt>
+    <dd>
+    Turn on the given attributes for subsequent writes to the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">attrs</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wattron.html">wattron(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:attrset"></a>
+    <strong>curses.window:attrset (attrs)</strong>
+    </dt>
+    <dd>
+    Set the given attributes for subsequent writes to the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">attrs</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wattrset.html">wattrset(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:border"></a>
+    <strong>curses.window:border ([ls[, rs[, ts[, bs[, tl[, tr[, bl[, br]]]]]]]])</strong>
+    </dt>
+    <dd>
+    Draw a border around a window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ls</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">rs</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">ts</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">bs</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">tl</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">tr</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">bl</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">br</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wborder.html">wborder(3x)</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">win:<span class="function-name">border</span> (curses.ACS_VLINE, curses.ACS_VLINE,
+            curses.ACS_HLINE, curses.ACS_HLINE,
+     curses.ACS_ULCORNER, curses.ACS_URCORNER,
+     curses.ACS_LLCORNER, curses.ACS_LRCORNER)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "curses.window:box"></a>
+    <strong>curses.window:box (verch, horch)</strong>
+    </dt>
+    <dd>
+    Draw a box around a window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">verch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">horch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/box.html">box(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:border">border</a></li>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">win:<span class="function-name">box</span> (curses.ACS_VLINE, curses.ACS_HLINE)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "curses.window:clear"></a>
+    <strong>curses.window:clear ()</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:erase">erase</a> and then <a href="../classes/curses.window.html#curses.window:clearok">clearok</a>.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wclear.html">wclear(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:clearok"></a>
+    <strong>curses.window:clearok (bf)</strong>
+    </dt>
+    <dd>
+    The next call to <a href="../classes/curses.window.html#curses.window:refresh">refresh</a> will clear and completely redraw the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/clearok.html">clearok(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:clone"></a>
+    <strong>curses.window:clone ()</strong>
+    </dt>
+    <dd>
+    Make a duplicate of a window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+        a new duplicate of this window
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/dupwin.html">dupwin(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:close"></a>
+    <strong>curses.window:close ()</strong>
+    </dt>
+    <dd>
+    Free all the resources associated with a window.
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/delwin.html">delwin(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:clrtobot"></a>
+    <strong>curses.window:clrtobot ()</strong>
+    </dt>
+    <dd>
+    Write blanks to every character position after the cursor.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wclrtobot.html">wclrtobot(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:clrtoeol"></a>
+    <strong>curses.window:clrtoeol ()</strong>
+    </dt>
+    <dd>
+    Write blanks from the cursor to the end of the current line.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wclrtoeol.html">wclrtoeol(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:copywin"></a>
+    <strong>curses.window:copywin (dst, st, sl, dt, dl, db, dr, overlay)</strong>
+    </dt>
+    <dd>
+    Overlay a rectangle of this window over another.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dst</span>
+            <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+         destination window
+        </li>
+        <li><span class="parameter">st</span>
+            <span class="types"><span class="type">int</span></span>
+         top row from this window
+        </li>
+        <li><span class="parameter">sl</span>
+            <span class="types"><span class="type">int</span></span>
+         left column from this window
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">int</span></span>
+         top row of rectangle
+        </li>
+        <li><span class="parameter">dl</span>
+            <span class="types"><span class="type">int</span></span>
+         left column of rectangle
+        </li>
+        <li><span class="parameter">db</span>
+            <span class="types"><span class="type">int</span></span>
+         bottom row of rectangle
+        </li>
+        <li><span class="parameter">dr</span>
+            <span class="types"><span class="type">int</span></span>
+         right column of rectangle
+        </li>
+        <li><span class="parameter">overlay</span>
+            <span class="types"><span class="type">bool</span></span>
+         if <code>true</code>, copy destructively like <a href="../classes/curses.window.html#curses.window:overlay">overlay</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/copywin.html">copywin(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:cursyncup"></a>
+    <strong>curses.window:cursyncup ()</strong>
+    </dt>
+    <dd>
+    Mark cursor position of ancestors of a window for refresh.
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wcursyncup.html">wcursyncup(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:delch"></a>
+    <strong>curses.window:delch ()</strong>
+    </dt>
+    <dd>
+    Delete the character under the cursor.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wdelch.html">wdelch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:deleteln"></a>
+    <strong>curses.window:deleteln ()</strong>
+    </dt>
+    <dd>
+    Move the lines below the cursor up, to delete the current line.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wdeleteln.html">wdeleteln(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:derive"></a>
+    <strong>curses.window:derive (nlines, ncols, begin_y, begin_x)</strong>
+    </dt>
+    <dd>
+    Create a new derived window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nlines</span>
+            <span class="types"><span class="type">int</span></span>
+         number of window lines
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">int</span></span>
+         number of window columns
+        </li>
+        <li><span class="parameter">begin_y</span>
+            <span class="types"><span class="type">int</span></span>
+         top line of window
+        </li>
+        <li><span class="parameter">begin_x</span>
+            <span class="types"><span class="type">int</span></span>
+         leftmost column of window
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+        a new relatively positioned subwindow
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/derwin.html">derwin(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:sub">sub</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:echoch"></a>
+    <strong>curses.window:echoch (ch)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:addch">addch</a> then <a href="../classes/curses.window.html#curses.window:refresh">refresh</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wechochar.html">wechochar(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:erase"></a>
+    <strong>curses.window:erase ()</strong>
+    </dt>
+    <dd>
+    Write blanks to every character position in the window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/werase.html">werase(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getbegyx"></a>
+    <strong>curses.window:getbegyx ()</strong>
+    </dt>
+    <dd>
+    Fetch the absolute top-left coordinates of a window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        y coordinate of top line</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        x coordinate of left column</li>
+        <li>
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/getbegyx.html">getbegyx(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getbkgd"></a>
+    <strong>curses.window:getbkgd ()</strong>
+    </dt>
+    <dd>
+    Fetch the current background attribute for the window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        current window background attribute
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/getbkgd.html">getbkgd(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:wbkgd">wbkgd</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getch"></a>
+    <strong>curses.window:getch ()</strong>
+    </dt>
+    <dd>
+    Read a character from the window input.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        character read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wgetch.html">wgetch(3x)</a></li>
+         <li><a href="../modules/curses.html#cbreak">curses.cbreak</a></li>
+         <li><a href="../modules/curses.html#echo">curses.echo</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:keypad">keypad</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getmaxyx"></a>
+    <strong>curses.window:getmaxyx ()</strong>
+    </dt>
+    <dd>
+    Fetch the absolute bottom-right coordinates of a window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        y coordinate of bottom line</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        x coordinate of right column</li>
+        <li>
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/getmaxyx.html">getmaxyx(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getparyx"></a>
+    <strong>curses.window:getparyx ()</strong>
+    </dt>
+    <dd>
+    Fetch the parent-relative coordinates of a subwindow.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        y coordinate of top line relative to parent window</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        x coordinate of left column relative to parent window</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/getparyx.html">getparyx(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getstr"></a>
+    <strong>curses.window:getstr ([n])</strong>
+    </dt>
+    <dd>
+    Read characters up to the next newline from the window input.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+        string read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wgetnstr.html">wgetnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:getyx"></a>
+    <strong>curses.window:getyx ()</strong>
+    </dt>
+    <dd>
+    Fetch the cursor position.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        y coordinate of top line</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        x coordinate of left column</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/getyx.html">getyx(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:hline"></a>
+    <strong>curses.window:hline (ch, n)</strong>
+    </dt>
+    <dd>
+    Draw a row of characters from the current cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/whline.html">whline(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:mvhline">mvhline</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:vline">vline</a></li>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">_, width = win:<span class="function-name">getmaxyx</span> ()
+win:<span class="function-name">hline</span> (curses.ACS_HLINE, width - curs_x)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "curses.window:idcok"></a>
+    <strong>curses.window:idcok (bf)</strong>
+    </dt>
+    <dd>
+    Use hardware character insert and delete on supporting terminals.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/idcok.html">idcok(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:idlok"></a>
+    <strong>curses.window:idlok (bf)</strong>
+    </dt>
+    <dd>
+    Use hardware line insert and delete on supporting terminals.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/idlok.html">idlok(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:immedok"></a>
+    <strong>curses.window:immedok (bf)</strong>
+    </dt>
+    <dd>
+    Automatically call <a href="../classes/curses.window.html#curses.window:refresh">refresh</a> whenever the window content is changed.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/immedok.html">immedok(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:insertln"></a>
+    <strong>curses.window:insertln ()</strong>
+    </dt>
+    <dd>
+    Move the current line and those below down one line, leaving a new blank line.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wdeleteln.html">wdeleteln(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:intrflush"></a>
+    <strong>curses.window:intrflush (bf)</strong>
+    </dt>
+    <dd>
+    Set the flush on interrupt behaviour for the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/intrflush.html">intrflush(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:is_linetouched"></a>
+    <strong>curses.window:is_linetouched (line)</strong>
+    </dt>
+    <dd>
+    Has a particular window line changed since the last refresh?
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">line</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/is_linetouched.html">is_linetouched(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:is_wintouched"></a>
+    <strong>curses.window:is_wintouched ()</strong>
+    </dt>
+    <dd>
+    Has a window changed since the last refresh?
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/is_wintouched.html">is_wintouched(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:keypad"></a>
+    <strong>curses.window:keypad ([on])</strong>
+    </dt>
+    <dd>
+    Set the single value keypad keys behaviour for the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">on</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/keypad.html">keypad(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:leaveok"></a>
+    <strong>curses.window:leaveok (bf)</strong>
+    </dt>
+    <dd>
+    No need to force synchronisation of hardware cursor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/leaveok.html">leaveok(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:meta"></a>
+    <strong>curses.window:meta (on)</strong>
+    </dt>
+    <dd>
+    Force 8-bit (or 7-bit) input characters for the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">on</span>
+            <span class="types"><span class="type">bool</span></span>
+         <code>true</code> to force 8-bit input characters
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/meta.html">meta(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:move"></a>
+    <strong>curses.window:move (y, x)</strong>
+    </dt>
+    <dd>
+    Change the cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wmove.html">wmove(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:move_derived"></a>
+    <strong>curses.window:move_derived (par_y, par_x)</strong>
+    </dt>
+    <dd>
+    Move the position of a derived window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">par_y</span>
+            <span class="types"><span class="type">int</span></span>
+         lines from top of parent window
+        </li>
+        <li><span class="parameter">par_x</span>
+            <span class="types"><span class="type">int</span></span>
+         columns from left of parent window
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvderwin.html">mvderwin(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:move_window"></a>
+    <strong>curses.window:move_window (y, x)</strong>
+    </dt>
+    <dd>
+    Move the position of a window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+         offset frow top of screen
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+         offset from left of screen
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwin.html">mvwin(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvaddch"></a>
+    <strong>curses.window:mvaddch (y, x, ch)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a>, then <a href="../classes/curses.window.html#curses.window:addch">addch</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwaddch.html">mvwaddch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvaddchstr"></a>
+    <strong>curses.window:mvaddchstr (y, x[, n])</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:addchstr">addchstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwaddchnstr.html">mvwaddchnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvaddstr"></a>
+    <strong>curses.window:mvaddstr (y, x, str[, n])</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:addstr">addstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwaddnstr.html">mvwaddnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvdelch"></a>
+    <strong>curses.window:mvdelch (y, x)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:delch">delch</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwdelch.html">mvwdelch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvgetch"></a>
+    <strong>curses.window:mvgetch (y, x)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:getch">getch</a>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        character read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwgetch.html">mvwgetch(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:getch">getch</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvgetstr"></a>
+    <strong>curses.window:mvgetstr (y, x[, n=-1])</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:getstr">getstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+         (<em>default</em> -1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+        string read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwgetnstr.html">mvwgetnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvhline"></a>
+    <strong>curses.window:mvhline (y, x, ch, n)</strong>
+    </dt>
+    <dd>
+    Move the cursor, then draw a row of characters from the new cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwhline.html">mvwhline(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvvline"></a>
+    <strong>curses.window:mvvline (y, x, ch, n)</strong>
+    </dt>
+    <dd>
+    Move the cursor, then draw a column of characters from the new cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwvline.html">mvwvline(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvwinch"></a>
+    <strong>curses.window:mvwinch (y, x)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winch">winch</a>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        attributed character read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwinch.html">mvwinch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvwinchnstr"></a>
+    <strong>curses.window:mvwinchnstr (y, x, n)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winchnstr">winchnstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/curses.chstr.html#">curses.chstr</a></span>
+        characters from cursor to end of line
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwinchnstr.html">mvwinchnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvwinnstr"></a>
+    <strong>curses.window:mvwinnstr (y, x, n)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winnstr">winnstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+        string read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwinnstr.html">mvwinnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvwinsch"></a>
+    <strong>curses.window:mvwinsch (y, x, ch)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winsch">winsch</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwinsch.html">mvwinsch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvwinsnstr"></a>
+    <strong>curses.window:mvwinsnstr (y, x, str, n)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winsnstr">winsnstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwinsnstr.html">mvwinsnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:mvwinsstr"></a>
+    <strong>curses.window:mvwinsstr (y, x, str)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:move">move</a> then <a href="../classes/curses.window.html#curses.window:winsstr">winsstr</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/mvwinsstr.html">mvwinsstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:nodelay"></a>
+    <strong>curses.window:nodelay (on)</strong>
+    </dt>
+    <dd>
+    Force <a href="../classes/curses.window.html#curses.window:getch">getch</a> to be non-blocking.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">on</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/nodelay.html">nodelay(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:notimeout"></a>
+    <strong>curses.window:notimeout (bf)</strong>
+    </dt>
+    <dd>
+    Return input immediately from this window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:noutrefresh"></a>
+    <strong>curses.window:noutrefresh ()</strong>
+    </dt>
+    <dd>
+    Copy the window backing screen to the virtual screen.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wnoutrefresh.html">wnoutrefresh(3x)</a></li>
+         <li><a href="../modules/curses.html#doupdate">curses.doupdate</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:refresh">refresh</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:overlay"></a>
+    <strong>curses.window:overlay (dst)</strong>
+    </dt>
+    <dd>
+    Overlay this window on top of another non-destructively.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dst</span>
+            <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+         destination window
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/overlay.html">overlay(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:overwrite">overwrite</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:overwrite"></a>
+    <strong>curses.window:overwrite (dst)</strong>
+    </dt>
+    <dd>
+    Destructively overwrite another window with this one.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dst</span>
+            <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+         destination window
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/overwrite.html">overwrite(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:pechochar"></a>
+    <strong>curses.window:pechochar (ch)</strong>
+    </dt>
+    <dd>
+    An efficient equivalent to <a href="../classes/curses.window.html#curses.window:addch">addch</a> followed by <a href="../classes/curses.window.html#curses.window:refresh">refresh</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/pechochar.html">pechochar(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:pnoutrefresh"></a>
+    <strong>curses.window:pnoutrefresh (st, sl, dt, dl, db, dr)</strong>
+    </dt>
+    <dd>
+    Equivalent to <a href="../classes/curses.window.html#curses.window:noutrefresh">noutrefresh</a> for use with pad windows.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">st</span>
+            <span class="types"><span class="type">int</span></span>
+         top row from this pad window
+        </li>
+        <li><span class="parameter">sl</span>
+            <span class="types"><span class="type">int</span></span>
+         left column from this pad window
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">int</span></span>
+         top row of rectangle
+        </li>
+        <li><span class="parameter">dl</span>
+            <span class="types"><span class="type">int</span></span>
+         left column of rectangle
+        </li>
+        <li><span class="parameter">db</span>
+            <span class="types"><span class="type">int</span></span>
+         bottom row of rectangle
+        </li>
+        <li><span class="parameter">dr</span>
+            <span class="types"><span class="type">int</span></span>
+         right column of rectangle
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/pnoutrefresh.html">pnoutrefresh(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:prefresh"></a>
+    <strong>curses.window:prefresh (st, sl, dt, dl, db, dr)</strong>
+    </dt>
+    <dd>
+    Equivalent to <a href="../classes/curses.window.html#curses.window:refresh">refresh</a> for use with pad windows.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">st</span>
+            <span class="types"><span class="type">int</span></span>
+         top row from this pad window
+        </li>
+        <li><span class="parameter">sl</span>
+            <span class="types"><span class="type">int</span></span>
+         left column from this pad window
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">int</span></span>
+         top row of rectangle
+        </li>
+        <li><span class="parameter">dl</span>
+            <span class="types"><span class="type">int</span></span>
+         left column of rectangle
+        </li>
+        <li><span class="parameter">db</span>
+            <span class="types"><span class="type">int</span></span>
+         bottom row of rectangle
+        </li>
+        <li><span class="parameter">dr</span>
+            <span class="types"><span class="type">int</span></span>
+         right column of rectangle
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/prefresh.html">prefresh(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:redrawln"></a>
+    <strong>curses.window:redrawln (beg_line, num_lines)</strong>
+    </dt>
+    <dd>
+    Mark a range of lines in a window as corrupted and in need of redrawing.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">beg_line</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">num_lines</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wredrawln.html">wredrawln(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:redrawwin"></a>
+    <strong>curses.window:redrawwin ()</strong>
+    </dt>
+    <dd>
+    Mark a window as having corrupted display that needs fully redrawing.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/redrawwin.html">redrawwin(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:redrawln">redrawln</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:refresh"></a>
+    <strong>curses.window:refresh ()</strong>
+    </dt>
+    <dd>
+    Refresh the window terminal display from the virtual screen.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wrefresh.html">wrefresh(3x)</a></li>
+         <li><a href="../modules/curses.html#doupdate">curses.doupdate</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:noutrefresh">noutrefresh</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:resize"></a>
+    <strong>curses.window:resize (height, width)</strong>
+    </dt>
+    <dd>
+    Change the size of a window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">int</span></span>
+         new number of lines
+        </li>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">int</span></span>
+         new number of columns
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:scrl"></a>
+    <strong>curses.window:scrl (n)</strong>
+    </dt>
+    <dd>
+    Scroll the window up <em>n</em> lines.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wscrl.html">wscrl(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:scrollok"></a>
+    <strong>curses.window:scrollok (bf)</strong>
+    </dt>
+    <dd>
+    Scroll up one line when the cursor writes to the last screen position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/scrollok.html">scrollok(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:standend"></a>
+    <strong>curses.window:standend ()</strong>
+    </dt>
+    <dd>
+    Turn off all attributes for subsequent writes to the window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wstandend.html">wstandend(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:standout"></a>
+    <strong>curses.window:standout ()</strong>
+    </dt>
+    <dd>
+    Set <code>A_STANDOUT</code> for subsequent writes to the window.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wstandout.html">wstandout(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:sub"></a>
+    <strong>curses.window:sub (nlines, ncols, begin_y, begin_x)</strong>
+    </dt>
+    <dd>
+    Create a new subwindow.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nlines</span>
+            <span class="types"><span class="type">int</span></span>
+         number of window lines
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">int</span></span>
+         number of window columns
+        </li>
+        <li><span class="parameter">begin_y</span>
+            <span class="types"><span class="type">int</span></span>
+         top line of window
+        </li>
+        <li><span class="parameter">begin_x</span>
+            <span class="types"><span class="type">int</span></span>
+         leftmost column of window
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+        a new absolutely positioned subwindow
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/subwin.html">subwin(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:derive">derive</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:subpad"></a>
+    <strong>curses.window:subpad (nlines, ncols, begin_y, begin_x)</strong>
+    </dt>
+    <dd>
+    Return a new subpad window object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nlines</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">begin_y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">begin_x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/curses.window.html">window</a></span>
+        a new subpad window object
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/subpad.html">subpad(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:syncdown"></a>
+    <strong>curses.window:syncdown ()</strong>
+    </dt>
+    <dd>
+    Mark child windows for refresh.
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/syncdown.html">syncdown(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:refresh">refresh</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:syncok"></a>
+    <strong>curses.window:syncok (bf)</strong>
+    </dt>
+    <dd>
+    Automatically mark ancestors of a changed window for refresh.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bf</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:syncup"></a>
+    <strong>curses.window:syncup ()</strong>
+    </dt>
+    <dd>
+    Mark ancestors of a window for refresh.
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wsyncup.html">wsyncup(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:timeout"></a>
+    <strong>curses.window:timeout (delay)</strong>
+    </dt>
+    <dd>
+    For differentiating user input from terminal control sequences.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">delay</span>
+            <span class="types"><span class="type">int</span></span>
+         milliseconds, <code>0</code> for blocking, <code>-1</code> for non-blocking
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wtimeout.html">wtimeout(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:touch"></a>
+    <strong>curses.window:touch ([changed])</strong>
+    </dt>
+    <dd>
+    Set the changed state of a window since the last refresh.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">changed</span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/touchwin.html">touchwin(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:touchline"></a>
+    <strong>curses.window:touchline (y, n[, changed])</strong>
+    </dt>
+    <dd>
+    Mark a range of lines as changed since the last refresh.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">changed</span>
+
+
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wtouchln.html">wtouchln(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:vline"></a>
+    <strong>curses.window:vline (ch, n)</strong>
+    </dt>
+    <dd>
+    Draw a column of characters from the current cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wvline.html">wvline(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:hline">hline</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:mvvline">mvvline</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:wbkgd"></a>
+    <strong>curses.window:wbkgd (ch)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:wbkgdset">wbkgdset</a> and then set the background of every position accordingly.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wbkgd.html">wbkgd(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:wbkgdset"></a>
+    <strong>curses.window:wbkgdset (ch)</strong>
+    </dt>
+    <dd>
+    Set the background attributes for subsequently written characters.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wbkgdset.html">wbkgdset(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winch"></a>
+    <strong>curses.window:winch ()</strong>
+    </dt>
+    <dd>
+    Fetch the attributed character at the current cursor position.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        attributed character read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winch.html">winch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winchnstr"></a>
+    <strong>curses.window:winchnstr (n)</strong>
+    </dt>
+    <dd>
+    Fetch attributed characters from cursor position up to rightmost window position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/curses.chstr.html#">curses.chstr</a></span>
+        characters from cursor to end of line
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winchnstr.html">winchnstr(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:winnstr">winnstr</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winnstr"></a>
+    <strong>curses.window:winnstr (n)</strong>
+    </dt>
+    <dd>
+    Fetch a string from cursor position up to rightmost window position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+        string read from input buffer
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winnstr.html">winnstr(3x)</a></li>
+         <li><a href="../classes/curses.window.html#curses.window:winchnstr">winchnstr</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winsch"></a>
+    <strong>curses.window:winsch (ch)</strong>
+    </dt>
+    <dd>
+    Insert an attributed character before the current cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ch</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winsch.html">winsch(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winsdelln"></a>
+    <strong>curses.window:winsdelln (n)</strong>
+    </dt>
+    <dd>
+    Call <a href="../classes/curses.window.html#curses.window:deleteln">deleteln</a> <em>n</em> times.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winsdelln.html">winsdelln(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winsnstr"></a>
+    <strong>curses.window:winsnstr (str, n)</strong>
+    </dt>
+    <dd>
+    Like <a href="../classes/curses.window.html#curses.window:winsstr">winsstr</a>, but no more than <em>n</em> characters.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winsnstr.html">winsnstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:winsstr"></a>
+    <strong>curses.window:winsstr (str)</strong>
+    </dt>
+    <dd>
+    Insert a string of characters before the current cursor position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/winsstr.html">winsstr(3x)</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "curses.window:wsetscrreg"></a>
+    <strong>curses.window:wsetscrreg (top, bot)</strong>
+    </dt>
+    <dd>
+    Set a software scrolling region for the window.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">top</span>
+            <span class="types"><span class="type">int</span></span>
+         top line of the scrolling region (line 0 is the first line)
+        </li>
+        <li><span class="parameter">bot</span>
+            <span class="types"><span class="type">int</span></span>
+         bottom line of the scrolling region
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        <code>true</code>, if successful
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="http://pubs.opengroup.org/onlinepubs/007908799/xcurses/wsetscrreg.html">wsetscrreg(3x)</a>
+    </ul>
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "curses.window:__tostring"></a>
+    <strong>curses.window:__tostring ()</strong>
+    </dt>
+    <dd>
+    Unique string representation of a <a href="../classes/curses.window.html#">curses.window</a>.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
+        unique string representation of the window object.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/ldoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2026-11-11 11:19:41 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,7 +1,5 @@
 # lcurses NEWS - User visible changes
 
-## Noteworthy changes in release ?.? (????-??-??) [?]
-
 
 ## Noteworthy changes in release 10 (2026-11-11) [stable]
 

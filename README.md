@@ -4,8 +4,8 @@ lcurses
 Copyright (C) 2004-2026 lcurses authors
 
 [![License](https://img.shields.io/:license-mit-blue.svg)](https://mit-license.org)
-[![workflow status](https://github.com/lcurses/lcurses/actions/workflows/spec.yml/badge.svg?branch=master)](https://github.com/lcurses/lcurses/actions)
-[![codecov.io](https://codecov.io/github/lcurses/lcurses/coverage.svg?branch=master)](https://codecov.io/github/lcurses/lcurses?branch=master)
+[![workflow status](https://github.com/lcurses/lcurses/actions/workflows/spec.yml/badge.svg?branch=release-v10)](https://github.com/lcurses/lcurses/actions)
+[![codecov.io](https://codecov.io/github/lcurses/lcurses/coverage.svg?branch=release-v10)](https://codecov.io/github/lcurses/lcurses?branch=release-v10)
 
 lcurses is a curses binding for [Lua][] 5.1 (including LuaJIT), 5.2, 5.3,
 5.4 and 5.5.  Like many Lua modules it simply binds to the C APIs of the
