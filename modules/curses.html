@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lcurses 9.0.0 Reference</title>
+    <title>lcurses 10 Reference</title>
     <link rel="stylesheet" href="../ldoc.css" type="text/css" />
 </head>
 <body>
@@ -24,7 +24,8 @@
 
 <div id="navigation">
 <br/>
-<h1>lcurses 9.0.0</h1>
+<h1>lcurses 10</h1>
+
 
 <ul>
   <li><a href="../index.html">Index</a></li>
@@ -38,16 +39,16 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>curses</strong></li>
 </ul>
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../classes/curses.chstr.html">curses.chstr</a></li>
   <li><a href="../classes/curses.window.html">curses.window</a></li>
 </ul>
 <h2>Examples</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../examples/curses.lua.html">curses.lua</a></li>
 </ul>
 
@@ -61,9 +62,9 @@
 
 
 <pre>
-getstr()   (<span class="keyword">and</span> wgetstr(), mvgetstr(), <span class="keyword">and</span> mvwgetstr())
-inchstr()  (<span class="keyword">and</span> winchstr(), mvinchstr(), <span class="keyword">and</span> mvwinchstr())
-instr()    (<span class="keyword">and</span> winstr(), mvinstr(), <span class="keyword">and</span> mvwinstr())
+<span class="function-name">getstr</span>()   (<span class="keyword">and</span> <span class="function-name">wgetstr</span>(), <span class="function-name">mvgetstr</span>(), <span class="keyword">and</span> <span class="function-name">mvwgetstr</span>())
+<span class="function-name">inchstr</span>()  (<span class="keyword">and</span> <span class="function-name">winchstr</span>(), <span class="function-name">mvinchstr</span>(), <span class="keyword">and</span> <span class="function-name">mvwinchstr</span>())
+<span class="function-name">instr</span>()    (<span class="keyword">and</span> <span class="function-name">winstr</span>(), <span class="function-name">mvinstr</span>(), <span class="keyword">and</span> <span class="function-name">mvwinstr</span>())
 </pre>
 
 <p> are subject to buffer overflow attack. This is because you pass in the
@@ -74,9 +75,9 @@ instr()    (<span class="keyword">and</span> winstr(), mvinstr(), <span class="k
 
 
 <pre>
-s = stdscr:getnstr()
-s = stdscr:inchnstr()
-s = stdscr:innstr()
+s = stdscr:<span class="function-name">getnstr</span>()
+s = stdscr:<span class="function-name">inchnstr</span>()
+s = stdscr:<span class="function-name">innstr</span>()
 </pre>
 
 <p> which take an extra "size of buffer" argument, in order to impose a maximum
@@ -95,7 +96,7 @@ s = stdscr:innstr()
 
 
 <pre>
-<span class="keyword">if</span> c &lt; <span class="number">256</span> <span class="keyword">then</span> c = <span class="global">string</span>.char(c) <span class="keyword">end</span>
+<span class="keyword">if</span> c &lt; <span class="number">256</span> <span class="keyword">then</span> c = <span class="global">string</span>.<span class="function-name">char</span>(c) <span class="keyword">end</span>
 </pre>
 
 <p> Some Lua functions take a different set of parameters than their C
@@ -830,9 +831,8 @@ s = stdscr:innstr()
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
-<span class="keyword">if</span> curses.has_colors () <span class="keyword">then</span>
-  curses.start_color ()
+        <pre class="example"><span class="keyword">if</span> curses.<span class="function-name">has_colors</span> () <span class="keyword">then</span>
+  curses.<span class="function-name">start_color</span> ()
 <span class="keyword">end</span></pre>
     </ul>
 
@@ -993,7 +993,7 @@ s = stdscr:innstr()
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         key name of <em>c</em>
     </ol>
 
@@ -1068,7 +1068,7 @@ s = stdscr:innstr()
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         verbose description of the current terminal
     </ol>
 
@@ -1381,7 +1381,7 @@ s = stdscr:innstr()
 
         </li>
         <li><span class="parameter">callback</span>
-            <span class="types"><span class="type">func</span></span>
+            <span class="types"><span class="type">function</span></span>
 
 
 
@@ -1582,7 +1582,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         current label for <em>labnum</em>
     </ol>
 
@@ -1686,7 +1686,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
 
         </li>
         <li><span class="parameter">label</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -1838,7 +1838,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         terminal name
     </ol>
 
@@ -1861,7 +1861,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">capname</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -1895,7 +1895,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">capname</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -1929,7 +1929,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">capname</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -1939,7 +1939,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         content of terminal string capability
     </ol>
 
@@ -1971,7 +1971,7 @@ This must be called before <a href="../modules/curses.html#initscr">initscr</a>.
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         printable representation of <em>c</em>
     </ol>
 
@@ -2870,13 +2870,12 @@ after <a href="../modules/curses.html#initscr">curses.initscr</a> has returned s
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
-  <span class="comment">-- Print curses constants supported on this host.
-</span>  <span class="keyword">for</span> name, value <span class="keyword">in</span> <span class="global">pairs</span> (<span class="global">require</span> <span class="string">"curses"</span>) <span class="keyword">do</span>
-    <span class="keyword">if</span> <span class="global">type</span> (value) == <span class="string">"number"</span> <span class="keyword">then</span>
-      <span class="global">print</span> (name, value)
-     <span class="keyword">end</span>
-  <span class="keyword">end</span></pre>
+        <pre class="example"><span class="comment">-- Print curses constants supported on this host.
+</span><span class="keyword">for</span> name, value <span class="keyword">in</span> <span class="global">pairs</span> (<span class="global">require</span> <span class="string">"curses"</span>) <span class="keyword">do</span>
+  <span class="keyword">if</span> <span class="global">type</span> (value) == <span class="string">"number"</span> <span class="keyword">then</span>
+    <span class="global">print</span> (name, value)
+   <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
     </ul>
 
 </dd>
@@ -2886,8 +2885,8 @@ after <a href="../modules/curses.html#initscr">curses.initscr</a> has returned s
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2016-01-10 17:53:23 </i>
+<i>generated by <a href="http://github.com/lunarmodules/ldoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2026-11-11 11:19:41 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

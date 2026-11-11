@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>lcurses 9.0.0 Reference</title>
+    <title>lcurses 10 Reference</title>
     <link rel="stylesheet" href="../ldoc.css" type="text/css" />
 </head>
 <body>
@@ -24,7 +24,8 @@
 
 <div id="navigation">
 <br/>
-<h1>lcurses 9.0.0</h1>
+<h1>lcurses 10</h1>
+
 
 <ul>
   <li><a href="../index.html">Index</a></li>
@@ -38,16 +39,16 @@
 
 
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../classes/curses.chstr.html">curses.chstr</a></li>
   <li><strong>curses.window</strong></li>
 </ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/curses.html">curses</a></li>
 </ul>
 <h2>Examples</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../examples/curses.lua.html">curses.lua</a></li>
 </ul>
 
@@ -65,8 +66,8 @@
 
 
 <pre>
-stdscr = curses.initscr ()
-window = curses.newwin (<span class="number">25</span>, <span class="number">80</span>, <span class="number">0</span>, <span class="number">0</span>)
+stdscr = curses.<span class="function-name">initscr</span> ()
+window = curses.<span class="function-name">newwin</span> (<span class="number">25</span>, <span class="number">80</span>, <span class="number">0</span>, <span class="number">0</span>)
 </pre>
 
 </p>
@@ -536,7 +537,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -748,11 +749,10 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
-  win:border (curses.ACS_VLINE, curses.ACS_VLINE,
-              curses.ACS_HLINE, curses.ACS_HLINE,
-	      curses.ACS_ULCORNER, curses.ACS_URCORNER,
-	      curses.ACS_LLCORNER, curses.ACS_LRCORNER)</pre>
+        <pre class="example">win:<span class="function-name">border</span> (curses.ACS_VLINE, curses.ACS_VLINE,
+            curses.ACS_HLINE, curses.ACS_HLINE,
+     curses.ACS_ULCORNER, curses.ACS_URCORNER,
+     curses.ACS_LLCORNER, curses.ACS_LRCORNER)</pre>
     </ul>
 
 </dd>
@@ -796,7 +796,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">win:box (curses.ACS_VLINE, curses.ACS_HLINE)</pre>
+        <pre class="example">win:<span class="function-name">box</span> (curses.ACS_VLINE, curses.ACS_HLINE)</pre>
     </ul>
 
 </dd>
@@ -1334,7 +1334,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         string read from input buffer
     </ol>
 
@@ -1414,9 +1414,8 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">
-  _, width = win:getmaxyx ()
-  win:hline (curses.ACS_HLINE, width - curs_x)</pre>
+        <pre class="example">_, width = win:<span class="function-name">getmaxyx</span> ()
+win:<span class="function-name">hline</span> (curses.ACS_HLINE, width - curs_x)</pre>
     </ul>
 
 </dd>
@@ -1954,7 +1953,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 
         </li>
         <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -2096,7 +2095,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         string read from input buffer
     </ol>
 
@@ -2327,7 +2326,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         string read from input buffer
     </ol>
 
@@ -2407,7 +2406,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 
         </li>
         <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -2458,7 +2457,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 
         </li>
         <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -3445,7 +3444,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         string read from input buffer
     </ol>
 
@@ -3535,7 +3534,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -3574,7 +3573,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">str</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
 
 
 
@@ -3647,7 +3646,7 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.5/manual.html#6.5">string</a></span>
         unique string representation of the window object.
     </ol>
 
@@ -3661,8 +3660,8 @@ window = curses.newwin (<span class="number">25</span>, <span class="number">80<
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2016-01-10 17:53:23 </i>
+<i>generated by <a href="http://github.com/lunarmodules/ldoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2026-11-11 11:19:41 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

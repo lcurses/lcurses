@@ -28,7 +28,6 @@ del,ins {
     text-decoration: none;
 }
 li {
-    list-style: disc;
     margin-left: 20px;
 }
 caption,th {
@@ -88,7 +87,7 @@ em { font-style: italic;}
 
 h1 {
     font-size: 1.5em;
-    margin: 0 0 20px 0;
+    margin: 20px 0 20px 0;
 }
 h2, h3, h4 { margin: 15px 0 10px 0; }
 h2 { font-size: 1.25em; }
@@ -295,6 +294,7 @@ pre .library { color: #0e7c6b; }
 pre .marker { color: #512b1e; background: #fedc56; font-weight: bold; }
 pre .string { color: #8080ff; }
 pre .number { color: #f8660d; }
+pre .function-name { color: #60447f; }
 pre .operator { color: #2239a8; font-weight: bold; }
 pre .preprocessor, pre .prepro { color: #a33243; }
 pre .global { color: #800080; }
